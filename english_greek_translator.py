@@ -19,7 +19,7 @@ def translate_to_biblical_greek(english_sentence):
 
 # Example usage:
 # You need to set your own API key from OpenAI
-openai.api_key = 'your-api-key-here'
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 english_sentence = "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life."
 greek_translation = translate_to_biblical_greek(english_sentence)
