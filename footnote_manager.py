@@ -79,8 +79,8 @@ def parse_footnote_string(footnote_str):
 # Usage example
 manager = FootnoteManager('new_testament.db')
 
-footnote_str = "Philippians 1:1 fn 1"
-footnote = "Φίλιπποι ἦν ἡ πρῶτη πόλις ἐν τῇ ἐπαρχίᾳ τῆς Μακεδονίας (Πράξεις 16:10-12). Διὰ της πορείας τῆς διακονίας τοῦ Παυλοῦ (Πράξεις 16:10-12), ἡ ἐκκλησία ἡ πρωτή ἠγειρῶθη ἐν τῇ Εὐρώπῃ."
+footnote_str = "Hebrews 7:25 fn 2"
+footnote = "Ὀ Χριστός ὡς ὁ ἀρχιερεύς ἡμῶν ὑπἐρ ἡμῶν ἐντυγχανούμενος τὴν δικήν ἡμῶν φέρει."
 book, chapter, verse, footnote_number = parse_footnote_string(footnote_str)
 manager.add_footnote(book, chapter, verse, footnote_number, footnote) 
 print(manager.get_footnote(book, chapter, verse, footnote_number))
