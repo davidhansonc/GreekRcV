@@ -61,7 +61,26 @@ class FootnoteManager:
             return None
         return footnote[0]
 
+def parse_footnote_string(footnote_str):
+    # Split the string by spaces to separate the components
+    parts = footnote_str.split()
+
+    # Extract book, chapter, and verse
+    book = parts[0]
+    chapter_and_verse = parts[1].split(':')
+    chapter = int(chapter_and_verse[0])
+    verse = int(chapter_and_verse[1])
+
+    # Extract footnote number
+    footnote_number = int(parts[3])
+
+    return book, chapter, verse, footnote_number
+
 # Usage example
 manager = FootnoteManager('new_testament.db')
-# manager.add_footnote('John', 2, 4, 5, "This is a test footnote!")
-print(manager.get_footnote('John', 2, 4, 5))
+
+footnote_str = "Philippians 1:1 fn 1"
+footnote = "Φίλιπποι ἦν ἡ πρῶτη πόλις ἐν τῇ ἐπαρχίᾳ τῆς Μακεδονίας (Πράξεις 16:10-12). Διὰ της πορείας τῆς διακονίας τοῦ Παυλοῦ (Πράξεις 16:10-12), ἡ ἐκκλησία ἡ πρωτή ἠγειρῶθη ἐν τῇ Εὐρώπῃ."
+book, chapter, verse, footnote_number = parse_footnote_string(footnote_str)
+manager.add_footnote(book, chapter, verse, footnote_number, footnote) 
+print(manager.get_footnote(book, chapter, verse, footnote_number))
