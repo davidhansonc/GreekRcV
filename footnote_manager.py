@@ -80,7 +80,7 @@ def parse_footnote_string(footnote_str):
 manager = FootnoteManager('new_testament.db')
 
 footnote_str = "Philippians 1:1 fn 2"
-footnote = "Ὥδε οὐκ ἔστιν· τοῖς ἁγίοις...καὶ ἐπισκόποις καὶ διακόνοις, ἀλλά ἔστιν· τοῖς ἁγίοις...σὺν ἐπισκόποις καὶ διακόνοις. ὅτι δηλοῖ, ἐστὶν τοῦτον ὑψηλῶς σημαντικόν, ὅτι ἐν τῇ τοπικῇ ἐκκλησία οἱ ἅγιοι καὶ οἱ ἐπίσκοποι καὶ οἱ διάκονοι οὐκ εἴσιν τρεῖς συστάσεις."
+footnote = "Ὥδε οὐκ ἔστιν· τοῖς ἁγίοις...καὶ ἐπισκόποις καὶ διακόνοις, ἀλλά ἔστιν· τοῖς ἁγίοις...σὺν ἐπισκόποις καὶ διακόνοις. τοῦτο ἐστὶν ὑψηλῶς σημαντικόν, ὅτι δηλοῖ ὅτι ἐν τῇ τοπικῇ ἐκκλησία οἱ ἅγιοι καὶ οἱ ἐπίσκοποι καὶ οἱ διάκονοι οὐκ εἴσιν τρεῖς ὁμάδες."
 book, chapter, verse, footnote_number = parse_footnote_string(footnote_str)
 manager.add_footnote(book, chapter, verse, footnote_number, footnote) 
 print(manager.get_footnote(book, chapter, verse, footnote_number))
