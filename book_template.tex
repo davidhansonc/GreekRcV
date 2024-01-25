@@ -5,8 +5,17 @@
 \usepackage[greek,english]{babel}
 \usepackage{verse}
 \usepackage[margin=1in]{geometry}
+\usepackage{xcolor} % Added this line
 \begin{document}
 \selectlanguage{greek}
+
+% Define the blue color for verse numbers
+\definecolor{verseblue}{rgb}{0,0,1} % Added this line
+\newcommand{\versenum}[1]{\textcolor{verseblue}{#1}} % Added this line
+
+% Define the red color for footnote numbers
+\definecolor{footnotered}{rgb}{1,0,0} % Added this line
+\renewcommand{\thefootnote}{\textcolor{footnotered}{\arabic{footnote}}} % Added this line
 
 % Placeholder for content
 {{ content }}

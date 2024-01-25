@@ -4,7 +4,7 @@ class FootnoteManager:
     def __init__(self, db_path):
         self.db_path = db_path
 
-    def add_footnote(self, book, chapter, verse, footnote_number, footnote_text):
+    def add_footnote(self, book, chapter, verse, footnote_number, word_index, footnote_text):
         # Connect to the SQLite database
         conn = sqlite3.connect(self.db_path)
         c = conn.cursor()
@@ -22,11 +22,12 @@ class FootnoteManager:
 
         # Insert or replace a footnote for the specified verse
         c.execute('''
-            INSERT INTO Footnotes (verse_id, footnote_number, footnote)
-            VALUES (?, ?, ?)
+            INSERT INTO Footnotes (verse_id, footnote_number, word_index, footnote)
+            VALUES (?, ?, ?, ?)
             ON CONFLICT(verse_id, footnote_number) DO UPDATE SET
-            footnote = excluded.footnote
-        ''', (verse_id, footnote_number, footnote_text))
+            footnote = excluded.footnote,
+            word_index = excluded.word_index
+        ''', (verse_id, footnote_number, word_index, footnote_text))
 
         # Commit the changes and close the connection
         conn.commit()
@@ -61,26 +62,60 @@ class FootnoteManager:
             return None
         return footnote[0]
 
-def parse_footnote_string(footnote_str):
-    # Split the string by spaces to separate the components
-    parts = footnote_str.split()
+    def parse_book_chapter_verse(self, book_chapter_verse):
+        # Split the string by spaces to separate the components
+        parts = book_chapter_verse.split()
 
-    # Extract book, chapter, and verse
-    book = parts[0]
-    chapter_and_verse = parts[1].split(':')
-    chapter = int(chapter_and_verse[0])
-    verse = int(chapter_and_verse[1])
+        # Extract book, chapter, and verse
+        book = parts[0]
+        chapter_and_verse = parts[1].split(':')
+        chapter = int(chapter_and_verse[0])
+        verse = int(chapter_and_verse[1])
 
-    # Extract footnote number
-    footnote_number = int(parts[3])
+        return book, chapter, verse
 
-    return book, chapter, verse, footnote_number
+    def update_fn_index(self, book_chapter_verse, footnote_number, new_word_index):
+        # Parse the book name, chapter, and verse from the input string
+        book, chapter, verse = self.parse_book_chapter_verse(book_chapter_verse)
 
-# Usage example
-manager = FootnoteManager('new_testament.db')
+        # Connect to the SQLite database
+        conn = sqlite3.connect(self.db_path)
+        c = conn.cursor()
 
-footnote_str = "Philippians 1:1 fn 2"
-footnote = "Ὥδε οὐκ ἔστιν· τοῖς ἁγίοις...καὶ ἐπισκόποις καὶ διακόνοις, ἀλλά ἔστιν· τοῖς ἁγίοις...σὺν ἐπισκόποις καὶ διακόνοις. τοῦτο ἐστὶν ὑψηλῶς σημαντικόν, ὅτι δηλοῖ ὅτι ἐν τῇ τοπικῇ ἐκκλησία οἱ ἅγιοι καὶ οἱ ἐπίσκοποι καὶ οἱ διάκονοι οὐκ εἴσιν τρεῖς τάξεις. ἡ ἐκκλησία μόνην μίαν τάξιν τῶν ἁγίων σὺν τοῖς ἐπισκόποις καὶ τοις διακόνοις συσταθεῖσα ἔχει. τοῦτο προσδηλοῖ ἔτι ὅτι ἐν τινι τοπικῇ δεῖ εἴναι μονὴν μίαν ἐκκλεσίαν σὺν ἑνὶ τάξει λαοῦ ᾗ πάντας τῶν ἁγίων ἔν ταῦτῃ τοπικῇ συνέστηκεν."
-book, chapter, verse, footnote_number = parse_footnote_string(footnote_str)
-manager.add_footnote(book, chapter, verse, footnote_number, footnote) 
-print(manager.get_footnote(book, chapter, verse, footnote_number))
+        # Find the verse_id for the given book, chapter, and verse
+        c.execute('''
+            SELECT id FROM Verses
+            WHERE book_name = ? AND chapter_number = ? AND verse_number = ?
+        ''', (book, chapter, verse))
+        verse_id_record = c.fetchone()
+        if verse_id_record is None:
+            print("Verse not found.")
+            return
+        verse_id = verse_id_record[0]
+
+        # Update the word_index for the specified footnote
+        c.execute('''
+            UPDATE Footnotes
+            SET word_index = ?
+            WHERE verse_id = ? AND footnote_number = ?
+        ''', (new_word_index, verse_id, footnote_number))
+
+        # Commit the changes and close the connection
+        conn.commit()
+        conn.close()
+
+if __name__ == "__main__":
+    manager = FootnoteManager('new_testament.db')
+
+    book = "Philippians"
+    chapter = 1
+    verse = 1
+    footnote_number = 3
+    word_index = 21
+    footnote = "Ἐπίσκοποι εἴσιν οἱ πρεσβύτεροι ἐν τινι τοπικῇ ἐκκλησίᾳ (Πράξεις 20:17, 28). πρεσβυτερος σημαίνει τὸν ἄνθρωπον καὶ ἐπίσκοπος τὴν λειτουργίαν. ὁ ἐπίσκοπος ἔστιν πρεσβύτερος ἐν λειτουργίᾳ αὐτοῦ. ὥδε οἱ ἐπισκόποι εἰλέγαται ἄντι πρεσβυτέρων ὅ δηλοῖ ὅτι οἱ πρεσβυτέροι τὴν ἐργουσίαν αὐτῶν ἐπληροῦντο."
+
+    manager.add_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
+    print(manager.get_footnote(book, chapter, verse, footnote_number))
+
+    # Update the word index for a specific footnote
+    # manager.update_fn_index("Philippians 1:1", footnote_number=1, new_word_index='18')

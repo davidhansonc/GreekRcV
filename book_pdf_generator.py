@@ -10,7 +10,7 @@ class PDFGenerator:
 
     def fetch_verses_and_footnotes(self, book_name):
         query = """
-        SELECT V.chapter_number, V.verse_number, V.verse_text, F.footnote_number, F.footnote
+        SELECT V.chapter_number, V.verse_number, V.verse_text, F.footnote_number, F.word_index, F.footnote
         FROM Verses V
         LEFT JOIN Footnotes F ON V.id = F.verse_id
         WHERE V.book_name = ?
@@ -28,15 +28,21 @@ class PDFGenerator:
         content.append(f'\\textsuperscript{{{verse}}} {text}')
         self.last_printed_verse = (chapter, verse)
 
-    def add_footnote_to_content(self, footnote_number, footnote, content):
-        if footnote:
-            content.append(f'\\footnote{{{footnote_number}: {footnote}}}')
+    def add_footnote_to_content(self, word_index, footnote, content):
+        if word_index is None:
+            return
+        index = int(word_index) - 1  # Convert to zero-based index
+        words = content[-1].split()  # Split the last line of content into words
+        if 0 <= index < len(words):
+            words[index] += f'\\footnote{{{footnote}}}'
+            content[-1] = ' '.join(words)  # Rejoin the words into a single string
 
     def generate_latex_content(self, results):
         content = []
-        for chapter, verse, text, footnote_number, footnote in results:
+        for chapter, verse, text, footnote_number, word_index, footnote in results:
             self.add_verse_to_content(chapter, verse, text, content)
-            self.add_footnote_to_content(footnote_number, footnote, content)
+            if footnote:
+                self.add_footnote_to_content(word_index, footnote, content)
         content.append('\\end{verse}')  # End the last verse environment
         return '\n'.join(content)
 
