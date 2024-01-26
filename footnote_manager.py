@@ -109,10 +109,10 @@ if __name__ == "__main__":
 
     book = "Philippians"
     chapter = 1
-    verse = 1
-    footnote_number = 3
-    word_index = 21
-    footnote = "Ἐπίσκοποι εἴσιν οἱ πρεσβύτεροι ἐν τινι τοπικῇ ἐκκλησίᾳ (Πράξεις 20:17, 28). πρεσβυτερος σημαίνει τὸν ἄνθρωπον καὶ ἐπίσκοπος τὴν λειτουργίαν. ὁ ἐπίσκοπος ἔστιν πρεσβύτερος ἐν λειτουργίᾳ αὐτοῦ. ὥδε οἱ ἐπισκόποι εἰλέγαται ἄντι πρεσβυτέρων ὅ δηλοῖ ὅτι οἱ πρεσβυτέροι τὴν ἐργουσίαν αὐτῶν ἐπληροῦντο."
+    verse = 2
+    footnote_number = 2
+    word_index = 5
+    footnote = "Ἴδε τὴν πρωτὴν γραφήν τοῦ δευτέρου στιχοῦ ἐν τῷ πρῶτῳ κεφαλαίῳ τῆς ἐπιστολῆς· Πρὸς Ἐφεσίους."
 
     manager.add_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
     print(manager.get_footnote(book, chapter, verse, footnote_number))
