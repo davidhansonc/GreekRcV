@@ -15,10 +15,10 @@
 % Define a new command to store the current verse number
 \newcommand{\currentverse}{1} % Initialize with a default value
 
-% Redefine the \@makefntext command to format the footnote number in red and superscript to the verse number
+% Redefine the \@makefntext command to format the footnote number in red and superscript to the bold verse number
 \makeatletter
 \renewcommand{\@makefntext}[1]{%
-    \noindent\makebox[1.8em][r]{\textcolor{black}{\currentverse}\textsuperscript{\textcolor{red}{\@thefnmark}}.\enspace}#1%
+    \noindent\makebox[1.8em][r]{\textcolor{red}{\currentverse}\textsuperscript{\textcolor{red}{\@thefnmark}}\enspace}#1%
 }
 \makeatother
 

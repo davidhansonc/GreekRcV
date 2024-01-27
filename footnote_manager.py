@@ -3,8 +3,35 @@ import sqlite3
 class FootnoteManager:
     def __init__(self, db_path):
         self.db_path = db_path
+    
+    def update_footnote_text(self, book, chapter, verse, footnote_number, new_footnote_text):
+        # Connect to the SQLite database
+        conn = sqlite3.connect(self.db_path)
+        c = conn.cursor()
 
-    def add_footnote(self, book, chapter, verse, footnote_number, word_index, footnote_text):
+        # First, find the verse_id for the given book, chapter, and verse
+        c.execute('''
+            SELECT id FROM Verses
+            WHERE book_name = ? AND chapter_number = ? AND verse_number = ?
+        ''', (book, chapter, verse))
+        verse_id_record = c.fetchone()
+        if verse_id_record is None:
+            print("Verse not found.")
+            return
+        verse_id = verse_id_record[0]
+
+        # Update the footnote text for the specified verse_id and footnote_number
+        c.execute('''
+            UPDATE Footnotes
+            SET footnote = ?
+            WHERE verse_id = ? AND footnote_number = ?
+        ''', (new_footnote_text, verse_id, footnote_number))
+
+        # Commit the changes and close the connection
+        conn.commit()
+        conn.close()
+
+    def add_new_footnote(self, book, chapter, verse, footnote_number, word_index, footnote_text):
         # Connect to the SQLite database
         conn = sqlite3.connect(self.db_path)
         c = conn.cursor()
@@ -109,13 +136,14 @@ if __name__ == "__main__":
 
     book = "Philippians"
     chapter = 1
-    verse = 5
-    footnote_number = 1
-    word_index = 3
-    footnote = "Ἴδε τὴν πρωτὴν γραφήν τοῦ εἰκοστοῦ ἑκτοῦ στιχοῦ ἐν τῷ πεντεκαιδεκάτῳ κεφαλαίῳ τῆς ἐπιστολῆς· Πρὸς Ῥωμαίους. Οἵ ἅγιοι κοινονίαν εἰς τὸ εὐαγγέλιον εἰχον, μετεχόντες ἐν τῷ"
+    verse = 1
+    footnote_number = 2
+    # word_index = 20
+    footnote = """
+    Ὥδε οὐκ ἔστιν· τοῖς ἁγίοις...καὶ ἐπισκόποις καὶ διακόνοις, ἀλλά ἐστίν· τοῖς ἁγίοις...σὺν ἐπισκόποις καὶ διακόνοις. τοῦτο ἐστὶν ὑψηλῶς σημαντικόν, ὅτι δηλοῖ ὅτι ἐν τῇ τοπικῇ ἐκκλησία οἱ ἅγιοι καὶ οἱ ἐπίσκοποι καὶ οἱ διάκονοι οὐκ εἴσιν τρεῖς τάξεις. ἡ ἐκκλησία μόνην μίαν τάξιν τῶν ἁγίων σὺν τοῖς ἐπισκόποις καὶ τοις διακόνοις συσταθεῖσα ἔχει. τοῦτο προσδηλοῖ ἔτι ὅτι ἐν τινι τοπικῇ δεῖ εἴναι μονὴν μίαν ἐκκλεσίαν σὺν ἑνὶ τάξει λαοῦ ᾗ πάντας τῶν ἁγίων ἔν ταῦτῃ τοπικῇ συνέστηκεν.
+    """
 
-    # manager.add_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
+    # manager.add_new_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
+    manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
+    # manager.update_fn_index("Philippians 1:1", footnote_number=2, new_word_index=20)
     print(manager.get_footnote(book, chapter, verse, footnote_number))
-
-    # Update the word index for a specific footnote
-    manager.update_fn_index("Philippians 1:5", footnote_number=1, new_word_index=word_index)
