@@ -59,10 +59,10 @@ class DatabaseCreator:
         # Assuming you have a list of tuples with book names and their chapter counts
         books_with_chapters = [
             ('Matthew', 28), ('Mark', 16), ('Luke', 24), ('John', 21), ('Acts', 28), ('Romans', 16),
-            ('1 Corinthians', 16), ('2 Corinthians', 13), ('Galatians', 6), ('Ephesians', 6), 
-            ('Philippians', 4), ('Colossians', 4), ('1 Thessalonians', 5), ('2 Thessalonians', 3), 
-            ('1 Timothy', 6), ('2 Timothy', 4), ('Titus', 3), ('Philemon', 1), ('Hebrews', 13), 
-            ('James', 5), ('1 Peter', 5), ('2 Peter', 3), ('1 John', 5), ('2 John', 1), ('3 John', 1), 
+            ('First Corinthians', 16), ('Second Corinthians', 13), ('Galatians', 6), ('Ephesians', 6), 
+            ('Philippians', 4), ('Colossians', 4), ('First Thessalonians', 5), ('Second Thessalonians', 3), 
+            ('First Timothy', 6), ('Second Timothy', 4), ('Titus', 3), ('Philemon', 1), ('Hebrews', 13), 
+            ('James', 5), ('First Peter', 5), ('Second Peter', 3), ('First John', 5), ('Second John', 1), ('Third John', 1), 
             ('Jude', 1), ('Revelation', 22)
         ]
         self.c.executemany('''
@@ -89,6 +89,5 @@ if __name__ == "__main__":
     creator = DatabaseCreator()
     creator.create_verses_table()
     creator.populate_verses_table('./nestle1904/nestle1904.csv')
-    creator.create_footnotes_table()    
     creator.create_books_table()  # Create the Books table
     creator.populate_books_table()  # Populate the Books table with the names of the books

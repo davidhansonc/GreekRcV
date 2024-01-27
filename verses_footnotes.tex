@@ -3,29 +3,60 @@
 \usepackage[utf8]{inputenc}
 \usepackage[LGR,T1]{fontenc}
 \usepackage[greek,english]{babel}
+\usepackage{tempora} % Added this line for Greek font support
 \usepackage{verse}
 \usepackage[margin=1in]{geometry}
-\usepackage{xcolor} % Added this line
+\usepackage{xcolor}
+\usepackage{newpxtext,newpxmath}
+\usepackage{dblfnote} % Added this line to use the dblfnote package
+\usepackage{chngcntr} % Add this line to use the chngcntr package
+
+% The dblfnote package automatically sets footnotes in two columns
+\DFNalwaysdouble % Uncomment this if you want two columns for footnotes on all pages
+
+% Define a command to switch to the Greek font
+\newcommand{\greekfonttext}[1]{{\fontfamily{Tempora-TLF}\selectfont #1}} % Renamed command
+
+% Define a new counter for verses
+\newcounter{versecounter}
+\newcommand{\newverse}{%
+  \stepcounter{versecounter}% Step verse counter
+  \setcounter{footnote}{0}% Reset footnote counter
+}
+
+% Redefine the footnote marker
+\renewcommand{\thefootnote}{\textsuperscript{\arabic{footnote}}}
+
+% Command to format the footnote label with verse number and footnote number
+\newcommand{\versefootnote}[1]{%
+  \footnotetext{\textsuperscript{\theversecounter\textsuperscript{\arabic{footnote}}} #1}
+}
+
 \begin{document}
 \selectlanguage{greek}
 
 % Define the blue color for verse numbers
-\definecolor{verseblue}{rgb}{0,0,1} % Added this line
-\newcommand{\versenum}[1]{\textcolor{verseblue}{#1}} % Added this line
+\definecolor{verseblue}{rgb}{0,0,1}
+\newcommand{\versenum}[1]{%
+  \newverse% Start new verse and reset footnote counter
+  \textcolor{verseblue}{#1}%
+}
 
 % Define the red color for footnote numbers
-\definecolor{footnotered}{rgb}{1,0,0} % Added this line
-\renewcommand{\thefootnote}{\textcolor{footnotered}{\arabic{footnote}}} % Added this line
+\definecolor{footnotered}{rgb}{1,0,0}
+\renewcommand{\thefootnote}{\textcolor{footnotered}{\arabic{footnote}}}
 
 % Placeholder for content
+\title{Philippians}
+\date{}
+\maketitle
 \section*{Chapter 1}
 \begin{verse}
-\textsuperscript{1} Παῦλος καὶ Τιμόθεος δοῦλοι Χριστοῦ Ἰησοῦ πᾶσιν τοῖς ἁγίοις ἐν Χριστῷ Ἰησοῦ τοῖς οὖσιν ἐν Φιλίπποις σὺν\footnote{Φίλιπποι ἦν ἡ πρῶτη πόλις ἐν τῇ ἐπαρχίᾳ τῆς Μακεδονίας (Πράξεις 16:10-12). Διὰ της πορείας τῆς διακονίας τοῦ Παυλοῦ (Πράξεις 16:10-12), ἡ ἐκκλησία ἡ πρωτή ἠγειρῶθη ἐν τῇ Εὐρώπῃ.} ἐπισκόποις καὶ διακόνοις·
-\textsuperscript{1} Παῦλος καὶ Τιμόθεος δοῦλοι Χριστοῦ Ἰησοῦ πᾶσιν τοῖς ἁγίοις ἐν Χριστῷ Ἰησοῦ τοῖς οὖσιν ἐν Φιλίπποις σὺν ἐπισκόποις\footnote{Ὥδε οὐκ ἔστιν· τοῖς ἁγίοις...καὶ ἐπισκόποις καὶ διακόνοις, ἀλλά ἔστιν· τοῖς ἁγίοις...σὺν ἐπισκόποις καὶ διακόνοις. τοῦτο ἐστὶν ὑψηλῶς σημαντικόν, ὅτι δηλοῖ ὅτι ἐν τῇ τοπικῇ ἐκκλησία οἱ ἅγιοι καὶ οἱ ἐπίσκοποι καὶ οἱ διάκονοι οὐκ εἴσιν τρεῖς τάξεις. ἡ ἐκκλησία μόνην μίαν τάξιν τῶν ἁγίων σὺν τοῖς ἐπισκόποις καὶ τοις διακόνοις συσταθεῖσα ἔχει. τοῦτο προσδηλοῖ ἔτι ὅτι ἐν τινι τοπικῇ δεῖ εἴναι μονὴν μίαν ἐκκλεσίαν σὺν ἑνὶ τάξει λαοῦ ᾗ πάντας τῶν ἁγίων ἔν ταῦτῃ τοπικῇ συνέστηκεν.} καὶ διακόνοις·
-\textsuperscript{2} χάρις ὑμῖν καὶ εἰρήνη ἀπὸ Θεοῦ Πατρὸς ἡμῶν καὶ Κυρίου Ἰησοῦ Χριστοῦ.
+\textsuperscript{1} Παῦλος καὶ Τιμόθεος δοῦλοι Χριστοῦ Ἰησοῦ πᾶσιν τοῖς ἁγίοις ἐν Χριστῷ Ἰησοῦ τοῖς οὖσιν ἐν Φιλίπποις σὺν \footnote{Φίλιπποι ἦν ἡ πρῶτη πόλις ἐν τῇ ἐπαρχίᾳ τῆς Μακεδονίας (Πράξεις 16:10-12). Διὰ της πορείας τῆς διακονίας τοῦ Παυλοῦ (Πράξεις 16:10-12), ἡ ἐκκλησία ἡ πρωτή ἠγειρῶθη ἐν τῇ Εὐρώπῃ.}ἐπισκόποις \footnote{Ὥδε οὐκ ἔστιν· τοῖς ἁγίοις...καὶ ἐπισκόποις καὶ διακόνοις, ἀλλά ἔστιν· τοῖς ἁγίοις...σὺν ἐπισκόποις καὶ διακόνοις. τοῦτο ἐστὶν ὑψηλῶς σημαντικόν, ὅτι δηλοῖ ὅτι ἐν τῇ τοπικῇ ἐκκλησία οἱ ἅγιοι καὶ οἱ ἐπίσκοποι καὶ οἱ διάκονοι οὐκ εἴσιν τρεῖς τάξεις. ἡ ἐκκλησία μόνην μίαν τάξιν τῶν ἁγίων σὺν τοῖς ἐπισκόποις καὶ τοις διακόνοις συσταθεῖσα ἔχει. τοῦτο προσδηλοῖ ἔτι ὅτι ἐν τινι τοπικῇ δεῖ εἴναι μονὴν μίαν ἐκκλεσίαν σὺν ἑνὶ τάξει λαοῦ ᾗ πάντας τῶν ἁγίων ἔν ταῦτῃ τοπικῇ συνέστηκεν.}καὶ διακόνοις·
+\textsuperscript{2} \footnote{Ἴδε τὴν δευτερὴν γραφήν τοῦ δευτέρου στιχοῦ ἐν τῷ πρῶτῳ κεφαλαίῳ τῆς ἐπιστολῆς· Πρὸς Ἐφεσίους.}χάρις ὑμῖν καὶ εἰρήνη \footnote{Ἴδε τὴν πρωτὴν γραφήν τοῦ δευτέρου στιχοῦ ἐν τῷ πρῶτῳ κεφαλαίῳ τῆς ἐπιστολῆς· Πρὸς Ἐφεσίους.}ἀπὸ Θεοῦ Πατρὸς ἡμῶν καὶ Κυρίου Ἰησοῦ Χριστοῦ.
 \textsuperscript{3} Εὐχαριστῶ τῷ Θεῷ μου ἐπὶ πάσῃ τῇ μνείᾳ ὑμῶν,
 \textsuperscript{4} πάντοτε ἐν πάσῃ δεήσει μου ὑπὲρ πάντων ὑμῶν μετὰ χαρᾶς τὴν δέησιν ποιούμενος,
-\textsuperscript{5} ἐπὶ τῇ κοινωνίᾳ ὑμῶν εἰς τὸ εὐαγγέλιον ἀπὸ τῆς πρώτης ἡμέρας ἄχρι τοῦ νῦν,
+\textsuperscript{5} ἐπὶ τῇ κοινωνίᾳ \footnote{Ἴδε τὴν πρωτὴν γραφήν τοῦ εἰκοστοῦ ἑκτοῦ στιχοῦ ἐν τῷ πεντεκαιδεκάτῳ κεφαλαίῳ τῆς ἐπιστολῆς· Πρὸς Ῥωμαίους. Οἵ ἅγιοι κοινονίαν εἰς τὸ εὐαγγέλιον εἰχον, μετεχόντες ἐν τῷ}ὑμῶν εἰς τὸ εὐαγγέλιον ἀπὸ τῆς πρώτης ἡμέρας ἄχρι τοῦ νῦν,
 \textsuperscript{6} πεποιθὼς αὐτὸ τοῦτο, ὅτι ὁ ἐναρξάμενος ἐν ὑμῖν ἔργον ἀγαθὸν ἐπιτελέσει ἄχρι ἡμέρας Χριστοῦ Ἰησοῦ·
 \textsuperscript{7} καθώς ἐστιν δίκαιον ἐμοὶ τοῦτο φρονεῖν ὑπὲρ πάντων ὑμῶν, διὰ τὸ ἔχειν με ἐν τῇ καρδίᾳ ὑμᾶς, ἔν τε τοῖς δεσμοῖς μου καὶ ἐν τῇ ἀπολογίᾳ καὶ βεβαιώσει τοῦ εὐαγγελίου συνκοινωνούς μου τῆς χάριτος πάντας ὑμᾶς ὄντας.
 \textsuperscript{8} μάρτυς γάρ μου ὁ Θεός, ὡς ἐπιποθῶ πάντας ὑμᾶς ἐν σπλάγχνοις Χριστοῦ Ἰησοῦ.
@@ -137,3 +168,4 @@
 \end{verse}
 
 \end{document}
+

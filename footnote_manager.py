@@ -109,10 +109,10 @@ if __name__ == "__main__":
 
     book = "Philippians"
     chapter = 1
-    verse = 2
-    footnote_number = 2
-    word_index = 5
-    footnote = "Ἴδε τὴν πρωτὴν γραφήν τοῦ δευτέρου στιχοῦ ἐν τῷ πρῶτῳ κεφαλαίῳ τῆς ἐπιστολῆς· Πρὸς Ἐφεσίους."
+    verse = 5
+    footnote_number = 1
+    word_index = 4
+    footnote = "Ἴδε τὴν πρωτὴν γραφήν τοῦ εἰκοστοῦ ἑκτοῦ στιχοῦ ἐν τῷ πεντεκαιδεκάτῳ κεφαλαίῳ τῆς ἐπιστολῆς· Πρὸς Ῥωμαίους. Οἵ ἅγιοι κοινονίαν εἰς τὸ εὐαγγέλιον εἰχον, μετεχόντες ἐν τῷ"
 
     manager.add_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
     print(manager.get_footnote(book, chapter, verse, footnote_number))

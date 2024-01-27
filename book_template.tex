@@ -3,21 +3,51 @@
 \usepackage[utf8]{inputenc}
 \usepackage[LGR,T1]{fontenc}
 \usepackage[greek,english]{babel}
+\usepackage{tempora} % Added this line for Greek font support
 \usepackage{verse}
 \usepackage[margin=1in]{geometry}
-\usepackage{xcolor} % Added this line
+\usepackage{xcolor}
+\usepackage{newpxtext,newpxmath}
+\usepackage{dblfnote} % Added this line to use the dblfnote package
+\usepackage{chngcntr} % Add this line to use the chngcntr package
+
+% The dblfnote package automatically sets footnotes in two columns
+\DFNalwaysdouble % Uncomment this if you want two columns for footnotes on all pages
+
+% Define a command to switch to the Greek font
+\newcommand{\greekfonttext}[1]{{\fontfamily{Tempora-TLF}\selectfont #1}} % Renamed command
+
+% Define a new counter for verses
+\newcounter{versecounter}
+\newcommand{\newverse}{%
+  \stepcounter{versecounter}% Step verse counter
+  \setcounter{footnote}{0}% Reset footnote counter
+}
+
+% Redefine the footnote marker
+\renewcommand{\thefootnote}{\textsuperscript{\arabic{footnote}}}
+
+% Command to format the footnote label with verse number and footnote number
+\newcommand{\versefootnote}[1]{%
+  \footnotetext{\textsuperscript{\theversecounter\textsuperscript{\arabic{footnote}}} #1}
+}
+
 \begin{document}
 \selectlanguage{greek}
 
 % Define the blue color for verse numbers
-\definecolor{verseblue}{rgb}{0,0,1} % Added this line
-\newcommand{\versenum}[1]{\textcolor{verseblue}{#1}} % Added this line
+\definecolor{verseblue}{rgb}{0,0,1}
+\newcommand{\versenum}[1]{%
+  \newverse% Start new verse and reset footnote counter
+  \textcolor{verseblue}{#1}%
+}
 
 % Define the red color for footnote numbers
-\definecolor{footnotered}{rgb}{1,0,0} % Added this line
-\renewcommand{\thefootnote}{\textcolor{footnotered}{\arabic{footnote}}} % Added this line
+\definecolor{footnotered}{rgb}{1,0,0}
+\renewcommand{\thefootnote}{\textcolor{footnotered}{\arabic{footnote}}}
 
 % Placeholder for content
 {{ content }}
 
 \end{document}
+
