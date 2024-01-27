@@ -25,6 +25,13 @@ class PDFGenerator:
                 content.append('\\end{verse}')  # End the previous verse environment
             content.append(f'\\section*{{Chapter {chapter}}}')  # Start a new chapter
             content.append('\\begin{verse}')  # Start the verse environment
+        else:
+            content.append('\\end{verse}')  # End the previous verse environment
+            content.append('\\begin{verse}')  # Start a new verse environment
+
+        # Reset the footnote counter for each new verse
+        content.append('\\setcounter{footnote}{0}')
+        
         verse_with_footnotes = self.apply_footnotes_to_verse(text, footnotes)
         content.append(f'\\textsuperscript{{{verse}}} {verse_with_footnotes}')
         self.last_printed_verse = (chapter, verse)

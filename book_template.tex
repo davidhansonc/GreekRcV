@@ -3,7 +3,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[LGR,T1]{fontenc}
 \usepackage[greek,english]{babel}
-\usepackage{tempora} % Added this line for Greek font support
+\usepackage[scaled]{helvet} % Use the helvet package to change to Helvetica font
+\renewcommand{\familydefault}{\sfdefault} % Change the default font family to sans serif (Helvetica)
 \usepackage{verse}
 \usepackage[margin=1in]{geometry}
 \usepackage{xcolor}
@@ -25,7 +26,13 @@
 }
 
 % Redefine the footnote marker
-\renewcommand{\thefootnote}{\textsuperscript{\arabic{footnote}}}
+\renewcommand{\thefootnote}{\textsuperscript{\theversecounter\textsuperscript{\arabic{footnote}}}}
+
+% Redefine the footnote rule to span the full page width
+\renewcommand{\footnoterule}{%
+  \noindent\rule{\textwidth}{0.4pt} % Change 0.4pt to your desired thickness
+  \vspace{1ex} % Space between the rule and the footnotes
+}
 
 % Command to format the footnote label with verse number and footnote number
 \newcommand{\versefootnote}[1]{%
@@ -50,4 +57,3 @@
 {{ content }}
 
 \end{document}
-
