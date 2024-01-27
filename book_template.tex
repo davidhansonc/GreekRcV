@@ -12,6 +12,19 @@
 \usepackage{dblfnote} % Added this line to use the dblfnote package
 \usepackage{chngcntr} % Add this line to use the chngcntr package
 
+% Define a new command to store the current verse number
+\newcommand{\currentverse}{1} % Initialize with a default value
+
+% Redefine the \@makefntext command to format the footnote number in red and superscript to the verse number
+\makeatletter
+\renewcommand{\@makefntext}[1]{%
+    \noindent\makebox[1.8em][r]{\textcolor{black}{\currentverse}\textsuperscript{\textcolor{red}{\@thefnmark}}.\enspace}#1%
+}
+\makeatother
+
+% Define a command to update the current verse number
+\newcommand{\setcurrentverse}[1]{\renewcommand{\currentverse}{#1}}
+
 % The dblfnote package automatically sets footnotes in two columns
 \DFNalwaysdouble % Uncomment this if you want two columns for footnotes on all pages
 

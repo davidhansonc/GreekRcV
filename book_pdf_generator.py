@@ -20,20 +20,26 @@ class PDFGenerator:
         return self.cursor.fetchall()
 
     def add_verse_to_content(self, chapter, verse, text, content, footnotes):
-        if self.last_printed_verse is None or chapter != self.last_printed_verse[0]:
+        # Check if we are starting a new chapter or verse
+        if self.last_printed_verse is None or chapter != self.last_printed_verse[0] or verse != self.last_printed_verse[1]:
             if self.last_printed_verse is not None:
-                content.append('\\end{verse}')  # End the previous verse environment
-            content.append(f'\\section*{{Chapter {chapter}}}')  # Start a new chapter
-            content.append('\\begin{verse}')  # Start the verse environment
-        else:
-            content.append('\\end{verse}')  # End the previous verse environment
-            content.append('\\begin{verse}')  # Start a new verse environment
+                # End the previous verse environment if it exists
+                content.append('\\end{verse}\n')  # End the previous verse environment
+            # Start a new chapter if necessary
+            if self.last_printed_verse is None or chapter != self.last_printed_verse[0]:
+                content.append(f'\\section*{{Chapter {chapter}}}\n')  # Start a new chapter
+            # Start a new verse environment
+            content.append('\\begin{verse}\n')  # Start the verse environment
+            # Set the current verse number for footnotes
+            content.append(f'\\setcurrentverse{{{verse}}}\n')  # Update the current verse number
 
         # Reset the footnote counter for each new verse
-        content.append('\\setcounter{footnote}{0}')
-        
+        content.append('\\setcounter{footnote}{0}\n')
+
+        # Apply footnotes to verse text
         verse_with_footnotes = self.apply_footnotes_to_verse(text, footnotes)
-        content.append(f'\\textsuperscript{{{verse}}} {verse_with_footnotes}')
+        # Add the verse number and text to the content, followed by a space to separate from the next verse
+        content.append(f'\\textsuperscript{{{verse}}}~{verse_with_footnotes}\n')
         self.last_printed_verse = (chapter, verse)
 
     def apply_footnotes_to_verse(self, text, footnotes):
