@@ -1,65 +1,20 @@
-const sqlite3 = require('sqlite3').verbose();
+// This function runs when the page is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Fetch the Greek titles from the server
+  fetch('/api/greek-titles')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data); // Add this line to log the data
+      // Get the dropdown element
+      const dropdown = document.getElementById('book-dropdown');
 
-// Open the database
-let db = new sqlite3.Database('../new_testament.db', sqlite3.OPEN_READONLY, (err) => {
-  if (err) {
-    console.error(err.message);
-  } else {
-    console.log('Connected to the new_testament.db database.');
-  }
+      // Add an option to the dropdown for each Greek title
+      data.data.forEach(item => { // Note the change here
+        const option = document.createElement('option');
+        option.value = item.greek_title;
+        option.textContent = item.greek_title;
+        dropdown.appendChild(option);
+      });
+    })
+    .catch(error => console.error('Error:', error));
 });
-
-function executeSqlQuery(sql, params, callback) {
-  db.all(sql, params, (err, rows) => {
-    callback(err, rows);
-  });
-}
-
-// Function to fetch Greek titles from the Books table
-function getGreekTitles() {
-  return new Promise((resolve, reject) => {
-    // This is a placeholder for your database fetching logic
-    executeSqlQuery("SELECT greek_title FROM Books WHERE greek_title IS NOT NULL AND greek_title != ''", [], (error, results) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(results);
-      }
-    });
-  });
-}
-
-// Function to populate the dropdown
-function populateBookDropdown() {
-  const dropdown = document.getElementById('book-dropdown');
-  
-  getGreekTitles().then(greekTitles => {
-    greekTitles.forEach(title => {
-      const option = document.createElement('option');
-      option.value = title;
-      option.textContent = title;
-      dropdown.appendChild(option);
-    });
-  }).catch(error => {
-    console.error('Error fetching Greek titles:', error);
-  });
-}
-
-// Call the function to populate the dropdown when the page loads
-document.addEventListener('DOMContentLoaded', populateBookDropdown);
-
-// Remember to close the database connection when your app is closing
-process.on('exit', () => {
-  db.close((err) => {
-    if (err) {
-      console.error(err.message);
-    } else {
-      console.log('Closed the database connection.');
-    }
-  });
-});
-
-// Export the function if you need to use it in other modules
-module.exports = {
-  executeSqlQuery
-};

@@ -3,8 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[LGR,T1]{fontenc}
 \usepackage[greek,english]{babel}
-\usepackage[scaled]{helvet} % Use the helvet package to change to Helvetica font
-\renewcommand{\familydefault}{\sfdefault} % Change the default font family to sans serif (Helvetica)
+\usepackage{FiraSans} % Use the Fira Sans font
 \usepackage{verse}
 \usepackage[margin=1in]{geometry}
 \usepackage{xcolor}
@@ -59,7 +58,7 @@
 \definecolor{verseblue}{rgb}{0,0,1}
 \newcommand{\versenum}[1]{%
   \newverse% Start new verse and reset footnote counter
-  \textcolor{verseblue}{#1}%
+  \textbf{\textcolor{verseblue}{#1}}
 }
 
 % Define the blue color for footnote numbers

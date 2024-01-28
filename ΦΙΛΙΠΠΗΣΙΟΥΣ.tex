@@ -1,0 +1,1122 @@
+% template.tex
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[LGR,T1]{fontenc}
+\usepackage[greek,english]{babel}
+\usepackage{FiraSans} % Use the Fira Sans font
+\usepackage{verse}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{newpxtext,newpxmath}
+\usepackage{dblfnote} % Added this line to use the dblfnote package
+\usepackage{chngcntr} % Add this line to use the chngcntr package
+
+% Define a new command to store the current verse number
+\newcommand{\currentverse}{1} % Initialize with a default value
+
+% Redefine the \@makefntext command to format the footnote number in red and superscript to the bold verse number
+\makeatletter
+\renewcommand{\@makefntext}[1]{%
+    \noindent\makebox[1.8em][r]{\textcolor{blue}{\currentverse}\textsuperscript{\textcolor{blue}{\@thefnmark}}\enspace}#1%
+}
+\makeatother
+
+% Define a command to update the current verse number
+\newcommand{\setcurrentverse}[1]{\renewcommand{\currentverse}{#1}}
+
+% The dblfnote package automatically sets footnotes in two columns
+\DFNalwaysdouble % Uncomment this if you want two columns for footnotes on all pages
+
+% Define a command to switch to the Greek font
+\newcommand{\greekfonttext}[1]{{\fontfamily{Tempora-TLF}\selectfont #1}} % Renamed command
+
+% Define a new counter for verses
+\newcounter{versecounter}
+\newcommand{\newverse}{%
+  \stepcounter{versecounter}% Step verse counter
+  \setcounter{footnote}{0}% Reset footnote counter
+}
+
+% Redefine the footnote marker
+\renewcommand{\thefootnote}{\textsuperscript{\theversecounter\textsuperscript{\arabic{footnote}}}}
+
+% Redefine the footnote rule to span the full page width
+\renewcommand{\footnoterule}{%
+  \noindent\rule{\textwidth}{0.4pt} % Change 0.4pt to your desired thickness
+  \vspace{1ex} % Space between the rule and the footnotes
+}
+
+% Command to format the footnote label with verse number and footnote number
+\newcommand{\versefootnote}[1]{%
+  \footnotetext{\textsuperscript{\theversecounter\textsuperscript{\arabic{footnote}}} #1}
+}
+
+\begin{document}
+\selectlanguage{greek}
+
+% Define the blue color for verse numbers
+\definecolor{verseblue}{rgb}{0,0,1}
+\newcommand{\versenum}[1]{%
+  \newverse% Start new verse and reset footnote counter
+  \textbf{\textcolor{verseblue}{#1}}
+}
+
+% Define the blue color for footnote numbers
+\definecolor{footnoteblue}{rgb}{0,0,1}
+\renewcommand{\thefootnote}{\textcolor{footnoteblue}{\arabic{footnote}}}
+
+% Placeholder for content
+\title{ΠΡΟΣ ΦΙΛΙΠΠΗΣΙΟΥΣ}
+\date{}
+\maketitle
+\section*{ΚΕΦΑΛΑΙΟΝ 1}
+
+\begin{verse}
+
+\setcurrentverse{1}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{1}~Παῦλος καὶ Τιμόθεος δοῦλοι Χριστοῦ Ἰησοῦ πᾶσιν τοῖς ἁγίοις ἐν Χριστῷ Ἰησοῦ τοῖς οὖσιν ἐν \footnote{Φίλιπποι ἦν ἡ πρῶτη πόλις ἐν τῇ ἐπαρχίᾳ τῆς Μακεδονίας (Πράξεις 16:10-12). Διὰ της πορείας τῆς διακονίας τοῦ Παυλοῦ πρὸς Εὐρώπην (Πράξεις 16:10-12), ἡ ἐκκλησία ἡ πρωτή ἐν τῇ Εὐρώπῃ ἠγειρῶθη ἐν ταύτῃ πόλει.}Φιλίπποις \footnote{
+    Ὥδε οὐκ ἔστιν· τοῖς ἁγίοις...καὶ ἐπισκόποις καὶ διακόνοις, ἀλλά ἐστίν· τοῖς ἁγίοις...σὺν ἐπισκόποις καὶ διακόνοις. τοῦτο ἐστὶν ὑψηλῶς σημαντικόν, ὅτι δηλοῖ ὅτι ἐν τῇ τοπικῇ ἐκκλησία οἱ ἅγιοι καὶ οἱ ἐπίσκοποι καὶ οἱ διάκονοι οὐκ εἴσιν τρεῖς τάξεις. ἡ ἐκκλησία μόνην μίαν τάξιν τῶν ἁγίων σὺν τοῖς ἐπισκόποις καὶ τοις διακόνοις συσταθεῖσα ἔχει. τοῦτο προσδηλοῖ ἔτι ὅτι ἐν τινι τοπικῇ δεῖ εἴναι μονὴν μίαν ἐκκλεσίαν σὺν ἑνὶ τάξει λαοῦ ᾗ πάντας τῶν ἁγίων ἔν ταῦτῃ τοπικῇ συνέστηκεν.
+    }σὺν \footnote{Ἐπίσκοποι εἴσιν οἱ πρεσβύτεροι ἐν τινι τοπικῇ ἐκκλησίᾳ (Πράξεις 20:17, 28). πρεσβυτερος σημαίνει τὸν ἄνθρωπον καὶ ἐπίσκοπος τὴν λειτουργίαν. ὁ ἐπίσκοπος ἔστιν πρεσβύτερος ἐν λειτουργίᾳ αὐτοῦ. ὥδε οἱ ἐπισκόποι εἰλέγαται ἄντι πρεσβυτέρων ὅ δηλοῖ ὅτι οἱ πρεσβυτέροι τὴν ἐργουσίαν αὐτῶν ἐπληροῦντο.}ἐπισκόποις καὶ \footnote{Οἵ διάκονοι εἴσιν ὑπὸ τῆς ἡγεμονίας τῶν ἐπισκόποις ἐν τοπικῇ ἐκκλησίᾳ (Πρός Τιμ. Α 3:8). ὁ στίχος τοῦτος ὁ ὄτι τοπική ἐκκλησία τῶν ἁγίων σὺν ἐπισκόποις ἡγεόμενοις καὶ διακόνοις διακονόντοις συνιστάσα ἔστιν δεικνύς, δηλοῖ ὅτι ἡ ἐκκλησία ἡ ἐν Φιλίπποις ἠν εὖ κείμενη.}διακόνοις·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{2}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{2}~\footnote{Ἴδε τὴν δευτερὴν γραφήν τοῦ δευτέρου στιχοῦ ἐν τῷ πρῶτῳ κεφαλαίῳ τῆς ἐπιστολῆς· Πρὸς Ἐφεσίους.}χάρις ὑμῖν καὶ εἰρήνη \footnote{Ἴδε τὴν πρωτὴν γραφήν τοῦ δευτέρου στιχοῦ ἐν τῷ πρῶτῳ κεφαλαίῳ τῆς ἐπιστολῆς· Πρὸς Ἐφεσίους.}ἀπὸ Θεοῦ Πατρὸς ἡμῶν καὶ Κυρίου Ἰησοῦ Χριστοῦ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{3}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{3}~Εὐχαριστῶ τῷ Θεῷ μου ἐπὶ πάσῃ τῇ μνείᾳ ὑμῶν,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{4}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{4}~πάντοτε ἐν πάσῃ δεήσει μου ὑπὲρ πάντων ὑμῶν μετὰ χαρᾶς τὴν δέησιν ποιούμενος,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{5}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{5}~ἐπὶ τῇ \footnote{Ἴδε τὴν πρωτὴν γραφήν τοῦ εἰκοστοῦ ἑκτοῦ στιχοῦ ἐν τῷ πεντεκαιδεκάτῳ κεφαλαίῳ τῆς ἐπιστολῆς· Πρὸς Ῥωμαίους. Οἵ ἅγιοι κοινονίαν εἰς τὸ εὐαγγέλιον εἰχον, μετεχόντες ἐν τῷ}κοινωνίᾳ ὑμῶν εἰς τὸ εὐαγγέλιον ἀπὸ τῆς πρώτης ἡμέρας ἄχρι τοῦ νῦν,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{6}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{6}~πεποιθὼς αὐτὸ τοῦτο, ὅτι ὁ ἐναρξάμενος ἐν ὑμῖν ἔργον ἀγαθὸν ἐπιτελέσει ἄχρι ἡμέρας Χριστοῦ Ἰησοῦ·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{7}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{7}~καθώς ἐστιν δίκαιον ἐμοὶ τοῦτο φρονεῖν ὑπὲρ πάντων ὑμῶν, διὰ τὸ ἔχειν με ἐν τῇ καρδίᾳ ὑμᾶς, ἔν τε τοῖς δεσμοῖς μου καὶ ἐν τῇ ἀπολογίᾳ καὶ βεβαιώσει τοῦ εὐαγγελίου συνκοινωνούς μου τῆς χάριτος πάντας ὑμᾶς ὄντας.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{8}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{8}~μάρτυς γάρ μου ὁ Θεός, ὡς ἐπιποθῶ πάντας ὑμᾶς ἐν σπλάγχνοις Χριστοῦ Ἰησοῦ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{9}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{9}~καὶ τοῦτο προσεύχομαι, ἵνα ἡ ἀγάπη ὑμῶν ἔτι μᾶλλον καὶ μᾶλλον περισσεύῃ ἐν ἐπιγνώσει καὶ πάσῃ αἰσθήσει,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{10}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{10}~εἰς τὸ δοκιμάζειν ὑμᾶς τὰ διαφέροντα, ἵνα ἦτε εἰλικρινεῖς καὶ ἀπρόσκοποι εἰς ἡμέραν Χριστοῦ,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{11}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{11}~πεπληρωμένοι καρπὸν δικαιοσύνης τὸν διὰ Ἰησοῦ Χριστοῦ, εἰς δόξαν καὶ ἔπαινον Θεοῦ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{12}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{12}~Γινώσκειν δὲ ὑμᾶς βούλομαι, ἀδελφοί, ὅτι τὰ κατ’ ἐμὲ μᾶλλον εἰς προκοπὴν τοῦ εὐαγγελίου ἐλήλυθεν,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{13}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{13}~ὥστε τοὺς δεσμούς μου φανεροὺς ἐν Χριστῷ γενέσθαι ἐν ὅλῳ τῷ πραιτωρίῳ καὶ τοῖς λοιποῖς πᾶσιν,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{14}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{14}~καὶ τοὺς πλείονας τῶν ἀδελφῶν ἐν Κυρίῳ πεποιθότας τοῖς δεσμοῖς μου περισσοτέρως τολμᾶν ἀφόβως τὸν λόγον τοῦ Θεοῦ λαλεῖν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{15}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{15}~Τινὲς μὲν καὶ διὰ φθόνον καὶ ἔριν, τινὲς δὲ καὶ δι’ εὐδοκίαν τὸν Χριστὸν κηρύσσουσιν·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{16}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{16}~οἱ μὲν ἐξ ἀγάπης, εἰδότες ὅτι εἰς ἀπολογίαν τοῦ εὐαγγελίου κεῖμαι,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{17}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{17}~οἱ δὲ ἐξ ἐριθείας τὸν Χριστὸν καταγγέλλουσιν, οὐχ ἁγνῶς, οἰόμενοι θλῖψιν ἐγείρειν τοῖς δεσμοῖς μου.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{18}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{18}~τί γάρ; πλὴν ὅτι παντὶ τρόπῳ, εἴτε προφάσει εἴτε ἀληθείᾳ, Χριστὸς καταγγέλλεται, καὶ ἐν τούτῳ χαίρω· ἀλλὰ καὶ χαρήσομαι·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{19}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{19}~οἶδα γὰρ ὅτι τοῦτό μοι ἀποβήσεται εἰς σωτηρίαν διὰ τῆς ὑμῶν δεήσεως καὶ ἐπιχορηγίας τοῦ Πνεύματος Ἰησοῦ Χριστοῦ,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{20}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{20}~κατὰ τὴν ἀποκαραδοκίαν καὶ ἐλπίδα μου ὅτι ἐν οὐδενὶ αἰσχυνθήσομαι, ἀλλ’ ἐν πάσῃ παρρησίᾳ ὡς πάντοτε καὶ νῦν μεγαλυνθήσεται Χριστὸς ἐν τῷ σώματί μου, εἴτε διὰ ζωῆς εἴτε διὰ θανάτου.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{21}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{21}~Ἐμοὶ γὰρ τὸ ζῆν Χριστὸς καὶ τὸ ἀποθανεῖν κέρδος.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{22}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{22}~εἰ δὲ τὸ ζῆν ἐν σαρκί, τοῦτό μοι καρπὸς ἔργου, καὶ τί αἱρήσομαι οὐ γνωρίζω.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{23}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{23}~συνέχομαι δὲ ἐκ τῶν δύο, τὴν ἐπιθυμίαν ἔχων εἰς τὸ ἀναλῦσαι καὶ σὺν Χριστῷ εἶναι, πολλῷ γὰρ μᾶλλον κρεῖσσον·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{24}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{24}~τὸ δὲ ἐπιμένειν τῇ σαρκὶ ἀναγκαιότερον δι’ ὑμᾶς.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{25}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{25}~καὶ τοῦτο πεποιθὼς οἶδα, ὅτι μενῶ καὶ παραμενῶ πᾶσιν ὑμῖν εἰς τὴν ὑμῶν προκοπὴν καὶ χαρὰν τῆς πίστεως,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{26}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{26}~ἵνα τὸ καύχημα ὑμῶν περισσεύῃ ἐν Χριστῷ Ἰησοῦ ἐν ἐμοὶ διὰ τῆς ἐμῆς παρουσίας πάλιν πρὸς ὑμᾶς.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{27}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{27}~Μόνον ἀξίως τοῦ εὐαγγελίου τοῦ Χριστοῦ πολιτεύεσθε, ἵνα εἴτε ἐλθὼν καὶ ἰδὼν ὑμᾶς εἴτε ἀπὼν ἀκούω τὰ περὶ ὑμῶν, ὅτι στήκετε ἐν ἑνὶ πνεύματι, μιᾷ ψυχῇ συναθλοῦντες τῇ πίστει τοῦ εὐαγγελίου,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{28}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{28}~καὶ μὴ πτυρόμενοι ἐν μηδενὶ ὑπὸ τῶν ἀντικειμένων, ἥτις ἐστὶν αὐτοῖς ἔνδειξις ἀπωλείας, ὑμῶν δὲ σωτηρίας, καὶ τοῦτο ἀπὸ Θεοῦ·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{29}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{29}~ὅτι ὑμῖν ἐχαρίσθη τὸ ὑπὲρ Χριστοῦ, οὐ μόνον τὸ εἰς αὐτὸν πιστεύειν ἀλλὰ καὶ τὸ ὑπὲρ αὐτοῦ πάσχειν,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{30}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{30}~τὸν αὐτὸν ἀγῶνα ἔχοντες οἷον εἴδετε ἐν ἐμοὶ καὶ νῦν ἀκούετε ἐν ἐμοί.
+
+\end{verse}
+
+\section*{ΚΕΦΑΛΑΙΟΝ 2}
+
+\begin{verse}
+
+\setcurrentverse{1}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{1}~Εἴ τις οὖν παράκλησις ἐν Χριστῷ, εἴ τι παραμύθιον ἀγάπης, εἴ τις κοινωνία Πνεύματος, εἴ τις σπλάγχνα καὶ οἰκτιρμοί,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{2}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{2}~πληρώσατέ μου τὴν χαρὰν ἵνα τὸ αὐτὸ φρονῆτε, τὴν αὐτὴν ἀγάπην ἔχοντες, σύνψυχοι, τὸ ἓν φρονοῦντες,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{3}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{3}~μηδὲν κατ’ ἐριθείαν μηδὲ κατὰ κενοδοξίαν, ἀλλὰ τῇ ταπεινοφροσύνῃ ἀλλήλους ἡγούμενοι ὑπερέχοντας ἑαυτῶν,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{4}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{4}~μὴ τὰ ἑαυτῶν ἕκαστοι σκοποῦντες, ἀλλὰ καὶ τὰ ἑτέρων ἕκαστοι.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{5}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{5}~τοῦτο φρονεῖτε ἐν ὑμῖν ὃ καὶ ἐν Χριστῷ Ἰησοῦ,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{6}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{6}~ὃς ἐν μορφῇ Θεοῦ ὑπάρχων οὐχ ἁρπαγμὸν ἡγήσατο τὸ εἶναι ἴσα Θεῷ,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{7}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{7}~ἀλλὰ ἑαυτὸν ἐκένωσεν μορφὴν δούλου λαβών, ἐν ὁμοιώματι ἀνθρώπων γενόμενος· καὶ σχήματι εὑρεθεὶς ὡς ἄνθρωπος
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{8}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{8}~ἐταπείνωσεν ἑαυτὸν γενόμενος ὑπήκοος μέχρι θανάτου, θανάτου δὲ σταυροῦ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{9}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{9}~διὸ καὶ ὁ Θεὸς αὐτὸν ὑπερύψωσεν, καὶ ἐχαρίσατο αὐτῷ τὸ ὄνομα τὸ ὑπὲρ πᾶν ὄνομα,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{10}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{10}~ἵνα ἐν τῷ ὀνόματι Ἰησοῦ πᾶν γόνυ κάμψῃ ἐπουρανίων καὶ ἐπιγείων καὶ καταχθονίων,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{11}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{11}~καὶ πᾶσα γλῶσσα ἐξομολογήσηται ὅτι ΚΥΡΙΟΣ ΙΗΣΟΥΣ ΧΡΙΣΤΟΣ εἰς δόξαν Θεοῦ Πατρός.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{12}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{12}~Ὥστε, ἀγαπητοί μου, καθὼς πάντοτε ὑπηκούσατε, μὴ ὡς ἐν τῇ παρουσίᾳ μου μόνον ἀλλὰ νῦν πολλῷ μᾶλλον ἐν τῇ ἀπουσίᾳ μου, μετὰ φόβου καὶ τρόμου τὴν ἑαυτῶν σωτηρίαν κατεργάζεσθε·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{13}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{13}~Θεὸς γάρ ἐστιν ὁ ἐνεργῶν ἐν ὑμῖν καὶ τὸ θέλειν καὶ τὸ ἐνεργεῖν ὑπὲρ τῆς εὐδοκίας.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{14}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{14}~πάντα ποιεῖτε χωρὶς γογγυσμῶν καὶ διαλογισμῶν,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{15}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{15}~ἵνα γένησθε ἄμεμπτοι καὶ ἀκέραιοι, τέκνα Θεοῦ ἄμωμα μέσον γενεᾶς σκολιᾶς καὶ διεστραμμένης, ἐν οἷς φαίνεσθε ὡς φωστῆρες ἐν κόσμῳ,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{16}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{16}~λόγον ζωῆς ἐπέχοντες, εἰς καύχημα ἐμοὶ εἰς ἡμέραν Χριστοῦ, ὅτι οὐκ εἰς κενὸν ἔδραμον οὐδὲ εἰς κενὸν ἐκοπίασα.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{17}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{17}~Ἀλλὰ εἰ καὶ σπένδομαι ἐπὶ τῇ θυσίᾳ καὶ λειτουργίᾳ τῆς πίστεως ὑμῶν, χαίρω καὶ συνχαίρω πᾶσιν ὑμῖν·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{18}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{18}~τὸ δὲ αὐτὸ καὶ ὑμεῖς χαίρετε καὶ συνχαίρετέ μοι.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{19}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{19}~Ἐλπίζω δὲ ἐν Κυρίῳ Ἰησοῦ Τιμόθεον ταχέως πέμψαι ὑμῖν, ἵνα κἀγὼ εὐψυχῶ γνοὺς τὰ περὶ ὑμῶν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{20}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{20}~οὐδένα γὰρ ἔχω ἰσόψυχον, ὅστις γνησίως τὰ περὶ ὑμῶν μεριμνήσει·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{21}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{21}~οἱ πάντες γὰρ τὰ ἑαυτῶν ζητοῦσιν, οὐ τὰ Χριστοῦ Ἰησοῦ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{22}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{22}~τὴν δὲ δοκιμὴν αὐτοῦ γινώσκετε, ὅτι ὡς πατρὶ τέκνον σὺν ἐμοὶ ἐδούλευσεν εἰς τὸ εὐαγγέλιον.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{23}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{23}~Τοῦτον μὲν οὖν ἐλπίζω πέμψαι ὡς ἂν ἀφίδω τὰ περὶ ἐμὲ ἐξαυτῆς·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{24}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{24}~πέποιθα δὲ ἐν Κυρίῳ ὅτι καὶ αὐτὸς ταχέως ἐλεύσομαι.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{25}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{25}~ἀναγκαῖον δὲ ἡγησάμην Ἐπαφρόδιτον τὸν ἀδελφὸν καὶ συνεργὸν καὶ συνστρατιώτην μου, ὑμῶν δὲ ἀπόστολον καὶ λειτουργὸν τῆς χρείας μου, πέμψαι πρὸς ὑμᾶς,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{26}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{26}~ἐπειδὴ ἐπιποθῶν ἦν πάντας ὑμᾶς, καὶ ἀδημονῶν, διότι ἠκούσατε ὅτι ἠσθένησεν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{27}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{27}~καὶ γὰρ ἠσθένησεν παραπλήσιον θανάτῳ· ἀλλὰ ὁ Θεὸς ἠλέησεν αὐτόν, οὐκ αὐτὸν δὲ μόνον ἀλλὰ καὶ ἐμέ, ἵνα μὴ λύπην ἐπὶ λύπην σχῶ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{28}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{28}~σπουδαιοτέρως οὖν ἔπεμψα αὐτὸν, ἵνα ἰδόντες αὐτὸν πάλιν χαρῆτε κἀγὼ ἀλυπότερος ὦ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{29}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{29}~προσδέχεσθε οὖν αὐτὸν ἐν Κυρίῳ μετὰ πάσης χαρᾶς, καὶ τοὺς τοιούτους ἐντίμους ἔχετε,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{30}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{30}~ὅτι διὰ τὸ ἔργον Χριστοῦ μέχρι θανάτου ἤγγισεν παραβολευσάμενος τῇ ψυχῇ, ἵνα ἀναπληρώσῃ τὸ ὑμῶν ὑστέρημα τῆς πρός με λειτουργίας.
+
+\end{verse}
+
+\section*{ΚΕΦΑΛΑΙΟΝ 3}
+
+\begin{verse}
+
+\setcurrentverse{1}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{1}~Τὸ λοιπόν, ἀδελφοί μου, χαίρετε ἐν Κυρίῳ. τὰ αὐτὰ γράφειν ὑμῖν ἐμοὶ μὲν οὐκ ὀκνηρόν, ὑμῖν δὲ ἀσφαλές.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{2}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{2}~Βλέπετε τοὺς κύνας, βλέπετε τοὺς κακοὺς ἐργάτας, βλέπετε τὴν κατατομήν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{3}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{3}~ἡμεῖς γάρ ἐσμεν ἡ περιτομή, οἱ Πνεύματι Θεοῦ λατρεύοντες καὶ καυχώμενοι ἐν Χριστῷ Ἰησοῦ καὶ οὐκ ἐν σαρκὶ πεποιθότες,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{4}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{4}~καίπερ ἐγὼ ἔχων πεποίθησιν καὶ ἐν σαρκί. Εἴ τις δοκεῖ ἄλλος πεποιθέναι ἐν σαρκί, ἐγὼ μᾶλλον·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{5}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{5}~περιτομῇ ὀκταήμερος, ἐκ γένους Ἰσραήλ, φυλῆς Βενιαμείν, Ἑβραῖος ἐξ Ἑβραίων, κατὰ νόμον Φαρισαῖος,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{6}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{6}~κατὰ ζῆλος διώκων τὴν ἐκκλησίαν, κατὰ δικαιοσύνην τὴν ἐν νόμῳ γενόμενος ἄμεμπτος.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{7}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{7}~Ἀλλὰ ἅτινα ἦν μοι κέρδη, ταῦτα ἥγημαι διὰ τὸν Χριστὸν ζημίαν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{8}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{8}~ἀλλὰ μὲν οὖν γε καὶ ἡγοῦμαι πάντα ζημίαν εἶναι διὰ τὸ ὑπερέχον τῆς γνώσεως Χριστοῦ Ἰησοῦ τοῦ Κυρίου μου, δι’ ὃν τὰ πάντα ἐζημιώθην, καὶ ἡγοῦμαι σκύβαλα ἵνα Χριστὸν κερδήσω
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{9}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{9}~καὶ εὑρεθῶ ἐν αὐτῷ, μὴ ἔχων ἐμὴν δικαιοσύνην τὴν ἐκ νόμου, ἀλλὰ τὴν διὰ πίστεως Χριστοῦ, τὴν ἐκ Θεοῦ δικαιοσύνην ἐπὶ τῇ πίστει,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{10}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{10}~τοῦ γνῶναι αὐτὸν καὶ τὴν δύναμιν τῆς ἀναστάσεως αὐτοῦ καὶ κοινωνίαν παθημάτων αὐτοῦ, συμμορφιζόμενος τῷ θανάτῳ αὐτοῦ,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{11}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{11}~εἴ πως καταντήσω εἰς τὴν ἐξανάστασιν τὴν ἐκ νεκρῶν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{12}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{12}~οὐχ ὅτι ἤδη ἔλαβον ἢ ἤδη τετελείωμαι, διώκω δὲ εἰ καὶ καταλάβω, ἐφ’ ᾧ καὶ κατελήμφθην ὑπὸ Χριστοῦ Ἰησοῦ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{13}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{13}~ἀδελφοί, ἐγὼ ἐμαυτὸν οὔπω λογίζομαι κατειληφέναι· ἓν δέ, τὰ μὲν ὀπίσω ἐπιλανθανόμενος τοῖς δὲ ἔμπροσθεν ἐπεκτεινόμενος,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{14}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{14}~κατὰ σκοπὸν διώκω εἰς τὸ βραβεῖον τῆς ἄνω κλήσεως τοῦ Θεοῦ ἐν Χριστῷ Ἰησοῦ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{15}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{15}~Ὅσοι οὖν τέλειοι, τοῦτο φρονῶμεν· καὶ εἴ τι ἑτέρως φρονεῖτε, καὶ τοῦτο ὁ Θεὸς ὑμῖν ἀποκαλύψει·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{16}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{16}~πλὴν εἰς ὃ ἐφθάσαμεν, τῷ αὐτῷ στοιχεῖν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{17}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{17}~Συνμιμηταί μου γίνεσθε, ἀδελφοί, καὶ σκοπεῖτε τοὺς οὕτως περιπατοῦντας καθὼς ἔχετε τύπον ἡμᾶς.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{18}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{18}~πολλοὶ γὰρ περιπατοῦσιν οὓς πολλάκις ἔλεγον ὑμῖν, νῦν δὲ καὶ κλαίων λέγω, τοὺς ἐχθροὺς τοῦ σταυροῦ τοῦ Χριστοῦ,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{19}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{19}~ὧν τὸ τέλος ἀπώλεια, ὧν ὁ θεὸς ἡ κοιλία καὶ ἡ δόξα ἐν τῇ αἰσχύνῃ αὐτῶν, οἱ τὰ ἐπίγεια φρονοῦντες.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{20}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{20}~ἡμῶν γὰρ τὸ πολίτευμα ἐν οὐρανοῖς ὑπάρχει, ἐξ οὗ καὶ Σωτῆρα ἀπεκδεχόμεθα Κύριον Ἰησοῦν Χριστόν,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{21}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{21}~ὃς μετασχηματίσει τὸ σῶμα τῆς ταπεινώσεως ἡμῶν σύμμορφον τῷ σώματι τῆς δόξης αὐτοῦ, κατὰ τὴν ἐνέργειαν τοῦ δύνασθαι αὐτὸν καὶ ὑποτάξαι αὐτῷ τὰ πάντα.
+
+\end{verse}
+
+\section*{ΚΕΦΑΛΑΙΟΝ 4}
+
+\begin{verse}
+
+\setcurrentverse{1}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{1}~Ὥστε, ἀδελφοί μου ἀγαπητοὶ καὶ ἐπιπόθητοι, χαρὰ καὶ στέφανός μου, οὕτως στήκετε ἐν Κυρίῳ, ἀγαπητοί.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{2}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{2}~Εὐοδίαν παρακαλῶ καὶ Συντύχην παρακαλῶ τὸ αὐτὸ φρονεῖν ἐν Κυρίῳ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{3}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{3}~ναὶ ἐρωτῶ καὶ σέ, γνήσιε σύνζυγε, συνλαμβάνου αὐταῖς, αἵτινες ἐν τῷ εὐαγγελίῳ συνήθλησάν μοι μετὰ καὶ Κλήμεντος καὶ τῶν λοιπῶν συνεργῶν μου, ὧν τὰ ὀνόματα ἐν βίβλῳ ζωῆς.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{4}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{4}~Χαίρετε ἐν Κυρίῳ πάντοτε· πάλιν ἐρῶ, χαίρετε.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{5}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{5}~τὸ ἐπιεικὲς ὑμῶν γνωσθήτω πᾶσιν ἀνθρώποις. ὁ Κύριος ἐγγύς·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{6}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{6}~μηδὲν μεριμνᾶτε, ἀλλ’ ἐν παντὶ τῇ προσευχῇ καὶ τῇ δεήσει μετὰ εὐχαριστίας τὰ αἰτήματα ὑμῶν γνωριζέσθω πρὸς τὸν Θεόν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{7}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{7}~καὶ ἡ εἰρήνη τοῦ Θεοῦ ἡ ὑπερέχουσα πάντα νοῦν φρουρήσει τὰς καρδίας ὑμῶν καὶ τὰ νοήματα ὑμῶν ἐν Χριστῷ Ἰησοῦ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{8}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{8}~Τὸ λοιπόν, ἀδελφοί, ὅσα ἐστὶν ἀληθῆ, ὅσα σεμνά, ὅσα δίκαια, ὅσα ἁγνά, ὅσα προσφιλῆ, ὅσα εὔφημα, εἴ τις ἀρετὴ καὶ εἴ τις ἔπαινος, ταῦτα λογίζεσθε·
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{9}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{9}~ἃ καὶ ἐμάθετε καὶ παρελάβετε καὶ ἠκούσατε καὶ εἴδετε ἐν ἐμοί, ταῦτα πράσσετε· καὶ ὁ Θεὸς τῆς εἰρήνης ἔσται μεθ’ ὑμῶν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{10}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{10}~Ἐχάρην δὲ ἐν Κυρίῳ μεγάλως ὅτι ἤδη ποτὲ ἀνεθάλετε τὸ ὑπὲρ ἐμοῦ φρονεῖν· ἐφ’ ᾧ καὶ ἐφρονεῖτε, ἠκαιρεῖσθε δέ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{11}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{11}~οὐχ ὅτι καθ’ ὑστέρησιν λέγω· ἐγὼ γὰρ ἔμαθον ἐν οἷς εἰμι αὐτάρκης εἶναι.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{12}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{12}~οἶδα καὶ ταπεινοῦσθαι, οἶδα καὶ περισσεύειν· ἐν παντὶ καὶ ἐν πᾶσιν μεμύημαι, καὶ χορτάζεσθαι καὶ πεινᾶν, καὶ περισσεύειν καὶ ὑστερεῖσθαι.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{13}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{13}~πάντα ἰσχύω ἐν τῷ ἐνδυναμοῦντί με.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{14}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{14}~πλὴν καλῶς ἐποιήσατε συνκοινωνήσαντές μου τῇ θλίψει.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{15}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{15}~οἴδατε δὲ καὶ ὑμεῖς, Φιλιππήσιοι, ὅτι ἐν ἀρχῇ τοῦ εὐαγγελίου, ὅτε ἐξῆλθον ἀπὸ Μακεδονίας, οὐδεμία μοι ἐκκλησία ἐκοινώνησεν εἰς λόγον δόσεως καὶ λήμψεως εἰ μὴ ὑμεῖς μόνοι,
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{16}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{16}~ὅτι καὶ ἐν Θεσσαλονίκῃ καὶ ἅπαξ καὶ δὶς εἰς τὴν χρείαν μοι ἐπέμψατε.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{17}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{17}~οὐχ ὅτι ἐπιζητῶ τὸ δόμα, ἀλλὰ ἐπιζητῶ τὸν καρπὸν τὸν πλεονάζοντα εἰς λόγον ὑμῶν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{18}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{18}~ἀπέχω δὲ πάντα καὶ περισσεύω· πεπλήρωμαι δεξάμενος παρὰ Ἐπαφροδίτου τὰ παρ’ ὑμῶν, ὀσμὴν εὐωδίας, θυσίαν δεκτήν, εὐάρεστον τῷ Θεῷ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{19}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{19}~ὁ δὲ Θεός μου πληρώσει πᾶσαν χρείαν ὑμῶν κατὰ τὸ πλοῦτος αὐτοῦ ἐν δόξῃ ἐν Χριστῷ Ἰησοῦ.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{20}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{20}~τῷ δὲ Θεῷ καὶ Πατρὶ ἡμῶν ἡ δόξα εἰς τοὺς αἰῶνας τῶν αἰώνων· ἀμήν.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{21}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{21}~Ἀσπάσασθε πάντα ἅγιον ἐν Χριστῷ Ἰησοῦ. ἀσπάζονται ὑμᾶς οἱ σὺν ἐμοὶ ἀδελφοί.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{22}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{22}~ἀσπάζονται ὑμᾶς πάντες οἱ ἅγιοι, μάλιστα δὲ οἱ ἐκ τῆς Καίσαρος οἰκίας.
+
+\end{verse}
+
+\begin{verse}
+
+\setcurrentverse{23}
+
+\setcounter{footnote}{0}
+
+\textsuperscript{23}~Ἡ χάρις τοῦ Κυρίου Ἰησοῦ Χριστοῦ μετὰ τοῦ πνεύματος ὑμῶν.
+
+\end{verse}
+
+\end{document}

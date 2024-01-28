@@ -112,7 +112,7 @@ class PDFGenerator:
             except OSError:
                 pass
 
-    def generate_pdf_with_verses_and_footnotes(self, book_name, output_filename='verses_footnotes'):
+    def generate_pdf_with_verses_and_footnotes(self, book_name, output_filename='ΦΙΛΙΠΠΗΣΙΟΥΣ'):
         greek_title = self.fetch_greek_title(book_name)
         results = self.fetch_verses_and_footnotes(book_name)
         latex_content = self.generate_latex_content(results)
