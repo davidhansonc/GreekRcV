@@ -8,6 +8,16 @@ class PDFGenerator:
         self.cursor = self.conn.cursor()
         self.last_printed_verse = None
 
+    def fetch_greek_title(self, book_name):
+        query = """
+        SELECT greek_title
+        FROM Books
+        WHERE name = ?
+        """
+        self.cursor.execute(query, (book_name,))
+        result = self.cursor.fetchone()
+        return result[0] if result else book_name
+
     def fetch_verses_and_footnotes(self, book_name):
         query = """
         SELECT V.chapter_number, V.verse_number, V.verse_text, F.footnote_number, F.word_index, F.footnote
@@ -27,7 +37,7 @@ class PDFGenerator:
                 content.append('\\end{verse}\n')  # End the previous verse environment
             # Start a new chapter if necessary
             if self.last_printed_verse is None or chapter != self.last_printed_verse[0]:
-                content.append(f'\\section*{{Chapter {chapter}}}\n')  # Start a new chapter
+                content.append(f'\\section*{{ΚΕΦΑΛΑΙΟΝ {chapter}}}\n')  # Start a new chapter
             # Start a new verse environment
             content.append('\\begin{verse}\n')  # Start the verse environment
             # Set the current verse number for footnotes
@@ -103,9 +113,10 @@ class PDFGenerator:
                 pass
 
     def generate_pdf_with_verses_and_footnotes(self, book_name, output_filename='verses_footnotes'):
+        greek_title = self.fetch_greek_title(book_name)
         results = self.fetch_verses_and_footnotes(book_name)
         latex_content = self.generate_latex_content(results)
-        self.write_latex_file(book_name, latex_content, output_filename)
+        self.write_latex_file(greek_title, latex_content, output_filename)
         self.compile_latex_to_pdf(output_filename)
         self.cleanup_aux_files(output_filename)
 

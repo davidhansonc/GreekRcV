@@ -18,7 +18,7 @@
 % Redefine the \@makefntext command to format the footnote number in red and superscript to the bold verse number
 \makeatletter
 \renewcommand{\@makefntext}[1]{%
-    \noindent\makebox[1.8em][r]{\textcolor{red}{\currentverse}\textsuperscript{\textcolor{red}{\@thefnmark}}\enspace}#1%
+    \noindent\makebox[1.8em][r]{\textcolor{blue}{\currentverse}\textsuperscript{\textcolor{blue}{\@thefnmark}}\enspace}#1%
 }
 \makeatother
 
@@ -62,9 +62,9 @@
   \textcolor{verseblue}{#1}%
 }
 
-% Define the red color for footnote numbers
-\definecolor{footnotered}{rgb}{1,0,0}
-\renewcommand{\thefootnote}{\textcolor{footnotered}{\arabic{footnote}}}
+% Define the blue color for footnote numbers
+\definecolor{footnoteblue}{rgb}{0,0,1}
+\renewcommand{\thefootnote}{\textcolor{footnoteblue}{\arabic{footnote}}}
 
 % Placeholder for content
 {{ content }}
