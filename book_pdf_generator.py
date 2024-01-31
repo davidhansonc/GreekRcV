@@ -109,8 +109,8 @@ class PDFGenerator:
     def write_latex_file(self, book_title, book_subject, content, output_filename):
         with open('book_template.tex', 'r') as file:
             template = file.read()
-        # Updated to include center justification for the book subject
-        title_content = f"\\title{{{book_title}}}\n\\date{{}}\n\\maketitle\n\\begin{{center}}\n\\section*{{{book_subject}}}\n\\end{{center}}\n" + content
+        # Include the book subject as a secondary title, formatted to be smaller and centered below the main title
+        title_content = f"\\title{{{book_title}\\\\[1ex] \\Large {book_subject}}}\n\\date{{}}\n\\maketitle\n" + content
         latex_document = template.replace('{{ content }}', title_content)
         with open(f'{output_filename}.tex', 'w') as file:
             file.write(latex_document)
