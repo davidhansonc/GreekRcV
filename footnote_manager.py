@@ -131,19 +131,43 @@ class FootnoteManager:
         conn.commit()
         conn.close()
 
+    def update_book_subject(self, book_name, subject):
+        """
+        Update the subject for a given book.
+
+        :param book_name: The name of the book to update.
+        :param subject: The new subject to set for the book.
+        """
+        # Connect to the SQLite database
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()  # Create a cursor object
+
+        query = """
+        UPDATE Books
+        SET subject = ?
+        WHERE name = ?
+        """
+        cursor.execute(query, (subject, book_name))
+        conn.commit()  # Commit the changes
+        conn.close()  # Close the connection
+        print(f"Subject updated for book '{book_name}'.")
+
+
 if __name__ == "__main__":
     manager = FootnoteManager('new_testament.db')
 
     book = "Philippians"
     chapter = 1
     verse = 5
-    footnote_number = 1
-    # word_index = 20
+    footnote_number = 2
+    word_index = 7
     footnote = """
-Οἵ ἄγιοι κοινωνίαν εἰς τὸ εὐαγγέλιον εἴχον, μετέχοντες δὲ ἐν τῷ προαιτερεῖν τοῦ διὰ τῆς διακονίας τοῦ ἀποστόλου Παύλου εὐγγελίου. οὕτος μέτοχος συμπεριέλαβε χρηματικάς προσφοράς τῷ ἀποστόλῳ (4:10, 15-16), ὅ ἐξήλθεν εἰς τὸν προαιτέρειν τοῦ εὐαγγελίου. τοιαύτη κοινωνία, ἥ ἐφύλαξεν αὐτοῦς μὴ εἶναι ἰδιωτικοῦς καὶ ποικίλον νοῦν ἔχοντας, δηλοῖ ὅτι ἕν ἐγένοντο μετὰ τοῦ ἀποστόλου Παύλου καὶ μετὰ ἀλλήλων. τούτο ἔδωκεν αὐτοῖς ἔδαφος εἰς ἐμπειρίαν καὶ ἀπόλαυσιν τοῦ Χριστοῦ, ὅ ἐστιν τὸ κυριώτατον τοῦ βιβλίου τοῦτου. ἡ ζωή ἡ ἐμπειρῶσα καὶ ἀπολαύουσα τὸν Χρίστον ἔστιν ζωή ἐν τῷ προαιτέρειν τοῦ εὐαγγελίου, ἐν τῷ ἀπαγγέλλειν τοῦ εὐαγγελίου, μὴ ἰδιωτική ἀλλά κοινή. ὅσον πλείον ἔχωμεν κοινωνίαν ἐν τῷ προαιτερεῖν τοῦ εὐαγγελίου, ὅσον πλείον τὸν Χρίστον ἐμπειρῶμεν καὶ ἀπολαύομεν. τοῦτο ἀποκτείνει τὸν ἐαυτόν ἡμῶν τε καὶ τὴν φιλοτιμίαν ἡμῶν καὶ τὴν αἵρεσιν τοῦ νοῦ ἡμῶν καὶ τὸν ἐκλογήν ἡμῶν.
     """
 
+    subject = 'Χρίστον Ἐμπειρῶν - Χρίστον Λαμβάνων ὡς Ἡμῶν '
+    manager.update_book_subject('Philippians', subject)
     # manager.add_new_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
-    manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
-    # manager.update_fn_index("Philippians 1:1", footnote_number=2, new_word_index=20)
-    print(manager.get_footnote(book, chapter, verse, footnote_number))
+    # manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
+    # manager.update_fn_index("Philippians 1:1", footnote_number=1, new_word_index=16)
+    # manager.update_fn_index("Philippians 1:1", footnote_number=2, new_word_index=17)
+    # print(manager.get_footnote(book, chapter, verse, footnote_number))

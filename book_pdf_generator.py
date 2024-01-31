@@ -18,6 +18,19 @@ class PDFGenerator:
         result = self.cursor.fetchone()
         return result[0] if result else book_name
 
+    def fetch_book_details(self, book_name):
+        query = """
+        SELECT greek_title, subject
+        FROM Books
+        WHERE name = ?
+        """
+        self.cursor.execute(query, (book_name,))
+        result = self.cursor.fetchone()
+        if result:
+            return result[0], result[1]  # Return both title and subject
+        else:
+            return book_name, ""  # Default subject to an empty string if not found
+
     def fetch_verses_and_footnotes(self, book_name):
         query = """
         SELECT V.chapter_number, V.verse_number, V.verse_text, F.footnote_number, F.word_index, F.footnote
@@ -93,10 +106,11 @@ class PDFGenerator:
             content.append('\\end{verse}')  # End the last verse environment
         return '\n'.join(content)
 
-    def write_latex_file(self, book_title, content, output_filename):
+    def write_latex_file(self, book_title, book_subject, content, output_filename):
         with open('book_template.tex', 'r') as file:
             template = file.read()
-        title_content = f"\\title{{{book_title}}}\n\\date{{}}\n\\maketitle\n" + content
+        # Updated to include center justification for the book subject
+        title_content = f"\\title{{{book_title}}}\n\\date{{}}\n\\maketitle\n\\begin{{center}}\n\\section*{{{book_subject}}}\n\\end{{center}}\n" + content
         latex_document = template.replace('{{ content }}', title_content)
         with open(f'{output_filename}.tex', 'w') as file:
             file.write(latex_document)
@@ -113,10 +127,10 @@ class PDFGenerator:
                 pass
 
     def generate_pdf_with_verses_and_footnotes(self, book_name, output_filename='ΦΙΛΙΠΠΗΣΙΟΥΣ'):
-        greek_title = self.fetch_greek_title(book_name)
+        greek_title, book_subject = self.fetch_book_details(book_name)  # Fetch both title and subject
         results = self.fetch_verses_and_footnotes(book_name)
         latex_content = self.generate_latex_content(results)
-        self.write_latex_file(greek_title, latex_content, output_filename)
+        self.write_latex_file(greek_title, book_subject, latex_content, output_filename)  # Pass subject to method
         self.compile_latex_to_pdf(output_filename)
         self.cleanup_aux_files(output_filename)
 
