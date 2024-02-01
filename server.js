@@ -31,6 +31,32 @@ app.get('/api/greek-titles', (req, res) => {
   });
 });
 
+// Endpoint to fetch the number of chapters for a given book based on its Greek title
+app.get('/api/chapters', (req, res) => {
+  const bookTitle = req.query.book;
+  if (!bookTitle) {
+    res.status(400).json({ error: "Missing book title in query parameters." });
+    return;
+  }
+  
+  const sql = "SELECT chapter_count FROM Books WHERE greek_title = ?";
+  
+  db.get(sql, [bookTitle], (err, row) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    if (row) {
+      res.json({
+        message: 'Success',
+        chapters: row.chapter_count
+      });
+    } else {
+      res.status(404).json({ error: "Book not found." });
+    }
+  });
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
