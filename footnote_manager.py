@@ -164,7 +164,7 @@ if __name__ == "__main__":
     footnote = """
     """
 
-    subject = 'Χρίστον Ἐμπειρῶν - Χρίστον Λαμβάνων ὡς Ἡμῶν '
+    subject = "Χριστὸν ἐμπειράζοντες - Λαμβάνοντες Χριστὸν ὡς τὴν ζωὴν ἡμῶν, τύπον, σκοπόν, δύναμιν, καὶ μυστήριον."
     manager.update_book_subject('Philippians', subject)
     # manager.add_new_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
     # manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)

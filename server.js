@@ -57,6 +57,33 @@ app.get('/api/chapters', (req, res) => {
   });
 });
 
+// Endpoint to fetch the number of verses for a given book and chapter
+app.get('/api/verses', (req, res) => {
+  const bookName = req.query.book;
+  const chapterNumber = req.query.chapter;
+  if (!bookName || !chapterNumber) {
+    res.status(400).json({ error: "Missing book name or chapter number in query parameters." });
+    return;
+  }
+  
+  const sql = "SELECT COUNT(verse_number) AS verse_count FROM Verses WHERE book_name = ? AND chapter_number = ?";
+  
+  db.get(sql, [bookName, chapterNumber], (err, row) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    if (row) {
+      res.json({
+        message: 'Success',
+        verses: row.verse_count
+      });
+    } else {
+      res.status(404).json({ error: "No verses found for the specified book and chapter." });
+    }
+  });
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);

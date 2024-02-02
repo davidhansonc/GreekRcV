@@ -31,6 +31,17 @@ class PDFGenerator:
         else:
             return book_name, ""  # Default subject to an empty string if not found
 
+    def fetch_outline_points(self, book_name):
+        query = """
+        SELECT verse_range, outline_point
+        FROM Outlines
+        WHERE book = ?
+        ORDER BY CAST(SUBSTR(verse_range, 1, INSTR(verse_range, ':') - 1) AS INTEGER),
+                CAST(SUBSTR(verse_range, INSTR(verse_range, ':') + 1, INSTR(verse_range, '-') - INSTR(verse_range, ':') - 1) AS INTEGER)
+        """
+        self.cursor.execute(query, (book_name,))
+        return self.cursor.fetchall()
+
     def fetch_verses_and_footnotes(self, book_name):
         query = """
         SELECT V.chapter_number, V.verse_number, V.verse_text, F.footnote_number, F.word_index, F.footnote
