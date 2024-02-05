@@ -84,14 +84,24 @@ class PDFGenerator:
                 words[index] = f'\\footnote{{{footnote}}}{words[index]}'
         return ' '.join(words)
 
-    def generate_latex_content(self, results):
+    def generate_latex_content(self, book_name, results):
         content = []
         current_chapter = None
         current_verse = None
         verse_text = ""
         footnotes = []
+        outline_points = self.fetch_outline_points(book_name)  # Fetch outline points for the book
+
+        outline_iterator = iter(outline_points)
+        current_outline = next(outline_iterator, None)
 
         for chapter, verse, text, footnote_number, word_index, footnote in results:
+            # Check if there's an outline point to insert before this verse
+            while current_outline and (int(current_outline[0].split(':')[0]) < chapter or (int(current_outline[0].split(':')[0]) == chapter and int(current_outline[0].split(':')[1].split('-')[0]) <= verse)):
+                # Insert the outline point into the content
+                content.append(f'\\textbf{{Outline Point:}} {current_outline[1]}\n')
+                current_outline = next(outline_iterator, None)
+
             if current_verse != verse or current_chapter != chapter:
                 if current_verse is not None:
                     # Add the collected verse and its footnotes to content
@@ -112,6 +122,11 @@ class PDFGenerator:
         # Add the last verse and its footnotes to content
         if current_verse is not None:
             self.add_verse_to_content(current_chapter, current_verse, verse_text, content, footnotes)
+
+        # Check for any remaining outline points after the last verse
+        while current_outline:
+            content.append(f'\\textbf{{Outline Point:}} {current_outline[1]}\n')
+            current_outline = next(outline_iterator, None)
 
         if self.last_printed_verse is not None:
             content.append('\\end{verse}')  # End the last verse environment
@@ -140,8 +155,8 @@ class PDFGenerator:
     def generate_pdf_with_verses_and_footnotes(self, book_name, output_filename='ΦΙΛΙΠΠΗΣΙΟΥΣ'):
         greek_title, book_subject = self.fetch_book_details(book_name)  # Fetch both title and subject
         results = self.fetch_verses_and_footnotes(book_name)
-        latex_content = self.generate_latex_content(results)
-        self.write_latex_file(greek_title, book_subject, latex_content, output_filename)  # Pass subject to method
+        latex_content = self.generate_latex_content(book_name, results)  # Now passing book_name here
+        self.write_latex_file(greek_title, book_subject, latex_content, output_filename)
         self.compile_latex_to_pdf(output_filename)
         self.cleanup_aux_files(output_filename)
 
