@@ -152,6 +152,28 @@ class FootnoteManager:
         conn.close()  # Close the connection
         print(f"Subject updated for book '{book_name}'.")
 
+    def add_outline_point(self, book_name, verse_range, outline_point):
+        """
+        Adds an outline point to the database.
+
+        :param book_name: The name of the book.
+        :param verse_range: The range of verses the outline point covers.
+        :param outline_point: The text of the outline point.
+        """
+        # Connect to the SQLite database
+        conn = sqlite3.connect(self.db_path)
+        c = conn.cursor()
+
+        # Insert the new outline point
+        c.execute('''
+            INSERT INTO Outlines (book_name, verse_range, outline_point)
+            VALUES (?, ?, ?)
+        ''', (book_name, verse_range, outline_point))
+
+        # Commit the changes and close the connection
+        conn.commit()
+        conn.close()
+        print(f"Outline point added for {book_name}: {verse_range} - {outline_point}")
 
 if __name__ == "__main__":
     manager = FootnoteManager('new_testament.db')
@@ -172,3 +194,4 @@ if __name__ == "__main__":
     # manager.update_fn_index("Philippians 1:1", footnote_number=1, new_word_index=16)
     # manager.update_fn_index("Philippians 1:1", footnote_number=2, new_word_index=17)
     print(manager.get_footnote(book, chapter, verse, footnote_number))
+
