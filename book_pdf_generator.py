@@ -3,11 +3,17 @@ import os
 import sqlite3
 
 class PDFGenerator:
+    # Initialization and Database Connection
     def __init__(self, db_path):
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
         self.last_printed_verse = None
 
+    def close(self):
+        self.cursor.close()
+        self.conn.close()
+
+    # Data Fetching Methods
     def fetch_greek_title(self, book_name):
         query = """
         SELECT greek_title
@@ -27,9 +33,9 @@ class PDFGenerator:
         self.cursor.execute(query, (book_name,))
         result = self.cursor.fetchone()
         if result:
-            return result[0], result[1]  # Return both title and subject
+            return result[0], result[1]
         else:
-            return book_name, ""  # Default subject to an empty string if not found
+            return book_name, ""
 
     def fetch_outline_points(self, book_name):
         query = """
@@ -37,7 +43,7 @@ class PDFGenerator:
         FROM Outlines
         WHERE book = ?
         ORDER BY CAST(SUBSTR(verse_range, 1, INSTR(verse_range, ':') - 1) AS INTEGER),
-                CAST(SUBSTR(verse_range, INSTR(verse_range, ':') + 1, INSTR(verse_range, '-') - INSTR(verse_range, ':') - 1) AS INTEGER)
+                 CAST(SUBSTR(verse_range, INSTR(verse_range, ':') + 1, INSTR(verse_range, '-') - INSTR(verse_range, ':') - 1) AS INTEGER)
         """
         self.cursor.execute(query, (book_name,))
         return self.cursor.fetchall()
@@ -53,37 +59,7 @@ class PDFGenerator:
         self.cursor.execute(query, (book_name,))
         return self.cursor.fetchall()
 
-    def add_verse_to_content(self, chapter, verse, text, content, footnotes):
-        # Check if we are starting a new chapter or verse
-        if self.last_printed_verse is None or chapter != self.last_printed_verse[0] or verse != self.last_printed_verse[1]:
-            if self.last_printed_verse is not None:
-                # End the previous verse environment if it exists
-                content.append('\\end{verse}\n')  # End the previous verse environment
-            # Start a new chapter if necessary
-            if self.last_printed_verse is None or chapter != self.last_printed_verse[0]:
-                content.append(f'\\section*{{ΚΕΦΑΛΑΙΟΝ {chapter}}}\n')  # Start a new chapter
-            # Start a new verse environment
-            content.append('\\begin{verse}\n')  # Start the verse environment
-            # Set the current verse number for footnotes
-            content.append(f'\\setcurrentverse{{{verse}}}\n')  # Update the current verse number
-
-        # Reset the footnote counter for each new verse
-        content.append('\\setcounter{footnote}{0}\n')
-
-        # Apply footnotes to verse text
-        verse_with_footnotes = self.apply_footnotes_to_verse(text, footnotes)
-        # Add the verse number and text to the content, followed by a space to separate from the next verse
-        content.append(f'\\textsuperscript{{{verse}}}~{verse_with_footnotes}\n')
-        self.last_printed_verse = (chapter, verse)
-
-    def apply_footnotes_to_verse(self, text, footnotes):
-        words = text.split()
-        for word_index, footnote in sorted(footnotes, key=lambda x: int(x[0])):
-            index = int(word_index) - 1
-            if 0 <= index < len(words):
-                words[index] = f'\\footnote{{{footnote}}}{words[index]}'
-        return ' '.join(words)
-
+    # Content Generation Methods
     def generate_latex_content(self, book_name, results):
         content = []
         current_chapter = None
@@ -132,6 +108,38 @@ class PDFGenerator:
             content.append('\\end{verse}')  # End the last verse environment
         return '\n'.join(content)
 
+    def add_verse_to_content(self, chapter, verse, text, content, footnotes):
+        # Check if we are starting a new chapter or verse
+        if self.last_printed_verse is None or chapter != self.last_printed_verse[0] or verse != self.last_printed_verse[1]:
+            if self.last_printed_verse is not None:
+                # End the previous verse environment if it exists
+                content.append('\\end{verse}\n')  # End the previous verse environment
+            # Start a new chapter if necessary
+            if self.last_printed_verse is None or chapter != self.last_printed_verse[0]:
+                content.append(f'\\section*{{ΚΕΦΑΛΑΙΟΝ {chapter}}}\n')  # Start a new chapter
+            # Start a new verse environment
+            content.append('\\begin{verse}\n')  # Start the verse environment
+            # Set the current verse number for footnotes
+            content.append(f'\\setcurrentverse{{{verse}}}\n')  # Update the current verse number
+
+        # Reset the footnote counter for each new verse
+        content.append('\\setcounter{footnote}{0}\n')
+
+        # Apply footnotes to verse text
+        verse_with_footnotes = self.apply_footnotes_to_verse(text, footnotes)
+        # Add the verse number and text to the content, followed by a space to separate from the next verse
+        content.append(f'\\textsuperscript{{{verse}}}~{verse_with_footnotes}\n')
+        self.last_printed_verse = (chapter, verse)
+
+    def apply_footnotes_to_verse(self, text, footnotes):
+        words = text.split()
+        for word_index, footnote in sorted(footnotes, key=lambda x: int(x[0])):
+            index = int(word_index) - 1
+            if 0 <= index < len(words):
+                words[index] = f'\\footnote{{{footnote}}}{words[index]}'
+        return ' '.join(words)
+
+    # File and Compilation Management
     def write_latex_file(self, book_title, book_subject, content, output_filename):
         with open('book_template.tex', 'r') as file:
             template = file.read()
@@ -152,6 +160,7 @@ class PDFGenerator:
             except OSError:
                 pass
 
+    # Main Method to Generate PDF
     def generate_pdf_with_verses_and_footnotes(self, book_name, output_filename='ΦΙΛΙΠΠΗΣΙΟΥΣ'):
         greek_title, book_subject = self.fetch_book_details(book_name)  # Fetch both title and subject
         results = self.fetch_verses_and_footnotes(book_name)
@@ -159,10 +168,6 @@ class PDFGenerator:
         self.write_latex_file(greek_title, book_subject, latex_content, output_filename)
         self.compile_latex_to_pdf(output_filename)
         self.cleanup_aux_files(output_filename)
-
-    def close(self):
-        self.cursor.close()
-        self.conn.close()
 
 # Usage example
 pdf_generator = PDFGenerator('new_testament.db')
