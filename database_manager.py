@@ -156,7 +156,7 @@ class FootnoteManager:
         """
         Adds an outline point to the database.
 
-        :param book_name: The name of the book.
+        :param book: The name of the book.
         :param verse_range: The range of verses the outline point covers.
         :param outline_point: The text of the outline point.
         """
@@ -166,7 +166,7 @@ class FootnoteManager:
 
         # Insert the new outline point
         c.execute('''
-            INSERT INTO Outlines (book_name, verse_range, outline_point)
+            INSERT INTO Outlines (book, verse_range, outline_point)
             VALUES (?, ?, ?)
         ''', (book_name, verse_range, outline_point))
 
@@ -189,9 +189,11 @@ if __name__ == "__main__":
     """
 
     # manager.update_book_subject('Philippians', subject)
+    manager.add_outline_point("Philippians", "1:3-30", "Living Christ to Magnify Him")
     # manager.add_new_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
-    manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
+    # manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
     # manager.update_fn_index("Philippians 1:1", footnote_number=1, new_word_index=16)
     # manager.update_fn_index("Philippians 1:1", footnote_number=2, new_word_index=17)
-    print(manager.get_footnote(book, chapter, verse, footnote_number))
+
+    # print(manager.get_footnote(book, chapter, verse, footnote_number))
 

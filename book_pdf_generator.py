@@ -75,7 +75,7 @@ class PDFGenerator:
             # Check if there's an outline point to insert before this verse
             while current_outline and (int(current_outline[0].split(':')[0]) < chapter or (int(current_outline[0].split(':')[0]) == chapter and int(current_outline[0].split(':')[1].split('-')[0]) <= verse)):
                 # Insert the outline point into the content
-                content.append(f'\\textbf{{Outline Point:}} {current_outline[1]}\n')
+                content.append(f'{current_outline[1]}\n')
                 current_outline = next(outline_iterator, None)
 
             if current_verse != verse or current_chapter != chapter:
