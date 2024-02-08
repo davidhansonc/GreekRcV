@@ -181,19 +181,19 @@ if __name__ == "__main__":
     # subject = "Χριστὸν ἐμπειράζοντες - Λαμβάνοντες Χριστὸν ὡς τὴν ζωὴν ἡμῶν, τύπον, σκοπόν, δύναμιν, καὶ μυστήριον."
     book = "Philippians"
     chapter = 1
-    verse = 5
-    footnote_number = 1
-    # word_index = 7
+    verse = 7
+    footnote_number = 2
+    word_index = 31
     footnote = """
-    οἱ ἅγιοι ἐν Φιλίπποις κοινωνίαν εἶχον εἰς τὸ εὐαγγέλιον, μετέχοντες εἰς τὴν προκοπὴν τοῦ εὐαγγελίου διὰ τῆς διακονίας τοῦ ἀποστόλου Παύλου. ἡ μετοχὴ αὕτη συμπεριελάμβανε οἰκονομικὰς συνεισφορὰς αὐτῶν πρὸς τὸν ἀπόστολον (4:10, 15-16), αἵτινες ἐξήλθεν εἰς τὸν προκόπτειν τοῦ εὐαγγελίου. τοιαύτη κοινωνία, ἥ ἐφύλαξεν αὐτοῦς μὴ εἶναι ἰδιωτικοῦς καὶ ποικίλον νοῦν ἔχοντας, δηλοῖ ὅτι ἕν ἐγένοντο μετὰ τοῦ ἀποστόλου Παύλου καὶ μετὰ ἀλλήλων. τούτο ἔδωκεν αὐτοῖς ἔδαφος εἰς ἐμπειρίαν καὶ χάραν τοῦ Χριστοῦ, ὅ ἐστιν τὸ κυριώτατον τοῦ βιβλίου τοῦτου. ἡ ζωή ἡ ἐμπειρῶσα καὶ χαίρουσα τὸν Χρίστον ἔστιν ζωή ἐν τῷ προκοπτεῖν τοῦ εὐαγγελίου, ἐν τῷ ἀπαγγέλλειν τοῦ εὐαγγελίου, μὴ ἰδιωτική ἀλλά κοινή. ὅσον πλείον ἔχωμεν κοινωνίαν ἐν τῷ προκοπτεῖν τοῦ εὐαγγελίου, ὅσον πλείον τὸν Χρίστον ἐμπειρῶμεν καὶ χαιρόμεν. τοῦτο ἀποκτείνει τὸν ἐαυτόν ἡμῶν τε καὶ τὴν φιλοτιμίαν ἡμῶν καὶ τὴν αἵρεσιν τοῦ νοῦ ἡμῶν καὶ τὸν ἐκλογήν ἡμῶν.
+Οἱ κοινωνοὶ τῆς χάριτος εἰσιν οἱ μετέχοντες τοῦ κατεργασμένου Τριάδος Θεοῦ καὶ χαίροντες ἐν αὐτῷ ὡς χάριν. ὁ ἀπόστολος τοιοῦτος ἠν ἐν τῇ ἀπολογίᾳ καὶ βεβαίωσιν τοῦ εὐαγγελίου, καὶ οἱ ἅγιοι ἐν Φιλίπποις συμμέτοχοι αὐτῷ ἐν ταῦτῃ χάριτι ἦσαν.
     """
 
     # manager.update_book_subject('Philippians', subject)
-    manager.add_outline_point("Philippians", "1:3-30", "Living Christ to Magnify Him")
+    # manager.add_outline_point("Philippians", "1:3-30", "Living Christ to Magnify Him")
     # manager.add_new_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
-    # manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
+    manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
     # manager.update_fn_index("Philippians 1:1", footnote_number=1, new_word_index=16)
     # manager.update_fn_index("Philippians 1:1", footnote_number=2, new_word_index=17)
 
-    # print(manager.get_footnote(book, chapter, verse, footnote_number))
+    print(manager.get_footnote(book, chapter, verse, footnote_number))
 
