@@ -182,7 +182,7 @@ if __name__ == "__main__":
     book = "Philippians"
     chapter = 1
     verse = 1
-    footnote_number = 1
+    footnote_number = 2
     # word_index = None
     footnote = """
 Φίλιπποι ἦν ἡ πρῶτη πόλις ἐν τῇ ἐπαρχίᾳ τῆς Μακεδονίας τοῦ 
@@ -192,7 +192,7 @@ if __name__ == "__main__":
     # manager.update_book_subject('Philippians', subject)
     # manager.add_outline_point("Philippians", "1:3-30", "Living Christ to Magnify Him")
     # manager.add_new_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
-    manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
+    # manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
     # manager.update_fn_index("Philippians 1:1", footnote_number=1, new_word_index=16)
     # manager.update_fn_index("Philippians 1:1", footnote_number=2, new_word_index=17)
 
