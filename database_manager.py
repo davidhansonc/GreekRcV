@@ -185,12 +185,13 @@ if __name__ == "__main__":
     footnote_number = 4
     # word_index = None
     footnote = """
+    Οἵ διάκονοι ἐν τοπικῇ ἐκκλεσίᾳ ὑπὸ τῆν ἡγεμονίαν τῶν ἐπισκόπων εἰσίν (πρός Τιμόθεον Aʹ 3:8). ὁ στίχος οὗτος, δεικνύων ὄτι τοπική ἐκκλησία συνίσταται ἐκ τῶν ἁγίων, μετὰ ἐπισκόπων ἡγεόμενων καὶ διακόνων διακονόντων, δηλοῖ ὅτι ἡ ἐκκλησία ἡ ἐν Φιλίπποις ἐν καλῇ τάξει ἦν.
     """
 
     # manager.update_book_subject('Philippians', subject)
     # manager.add_outline_point("Philippians", "1:3-30", "Living Christ to Magnify Him")
     # manager.add_new_footnote(book, chapter, verse, footnote_number, word_index, footnote) 
-    # manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
+    manager.update_footnote_text(book, chapter, verse, footnote_number, footnote)
     # manager.update_fn_index("Philippians 1:1", footnote_number=2, new_word_index=17)
 
     print(manager.get_footnote(book, chapter, verse, footnote_number))
